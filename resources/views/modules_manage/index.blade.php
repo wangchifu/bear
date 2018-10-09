@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="form-group col-md-12">
+        <div class="form-group">
             <h2>模組權限管理</h2>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
