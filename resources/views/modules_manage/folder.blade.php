@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="form-group col-12">
+        <div class="form-group">
             <h2>模組權限管理</h2>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -38,7 +38,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="form-group form-check col-12">
+        <div class="form-group form-check">
             <input type="checkbox" name="active" class="form-check-input" id="Check1" checked>
             <label class="form-check-label" for="Check1">立即啟用</label>
         </div>
