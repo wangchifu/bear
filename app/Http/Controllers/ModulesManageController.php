@@ -8,9 +8,31 @@ use Illuminate\Http\Request;
 class ModulesManageController extends Controller
 {
     //模組管理
-    public function index()
+    public function index($folder_id=0)
     {
-        return view('modules_manage.index');
+        $folders = Module::where('type','folder')
+            ->where('module_id',$folder_id)
+            ->orderBy('order_by')
+            ->get();
+
+        $father_folder_id = $folder_id;
+        while($father_folder_id != 0){
+            $father_folder = Module::where('id',$father_folder_id)
+                ->first();
+            $breadcrumb[$father_folder_id] = $father_folder->name;
+            $father_folder_id = $father_folder->module_id;
+        }
+
+        $breadcrumb[0] = '首頁';
+        //倒序array
+        $breadcrumb = array_reverse($breadcrumb,true);
+        $data = [
+            'folder_id'=>$folder_id,
+            'folders'=>$folders,
+            'breadcrumb'=>$breadcrumb,
+        ];
+
+        return view('modules_manage.index',$data);
     }
 
     //新增分類

@@ -74,5 +74,13 @@ class ModulesTableSeeder extends Seeder
             'active'=>'on',
         ]);
 
+        \App\Module::create([
+            'name' => '模組權限管理',
+            'type' => "module",
+            'module_id' => "8",
+            'order_by' =>'1',
+            'active'=>'on',
+        ]);
+
     }
 }
