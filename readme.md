@@ -8,7 +8,6 @@
 - php7.2 安裝請參考 [網路教學](https://blog.johnsonlu.org/install-or-upgrade-php-7-2-on-ubuntu/)
 
 - php 套件
-<br>
 sudo apt-get install php7.2-cli php7.2-json php7.2-mbstring php7.2-gd php7.2-xml php7.2-ldap php7.2-mysql php7.2-curl
 
 - 安裝 git
@@ -67,6 +66,7 @@ php artisan db:seed
 ### 修改 apache 設定，將網站根目錄指到 bear/public，你最好有一個 domain name
 - 建立設定檔，請參考底下修改成自己系統的
 sudo vim /etc/apache2/sites-available/bear.conf
+<code>
 <VirtualHost *:80>
         ServerName bear.localhost
         DocumentRoot /var/www/html/bear/public
@@ -74,3 +74,4 @@ sudo vim /etc/apache2/sites-available/bear.conf
         AllowOverride All
         </Directory>
 </VirtualHost>
+</code>
