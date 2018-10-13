@@ -8,6 +8,7 @@
 - php7.2 安裝請參考 [網路教學](https://blog.johnsonlu.org/install-or-upgrade-php-7-2-on-ubuntu/)
 
 - php 套件
+<br>
 sudo apt-get install php7.2-cli php7.2-json php7.2-mbstring php7.2-gd php7.2-xml php7.2-ldap php7.2-mysql php7.2-curl
 
 - 安裝 git
