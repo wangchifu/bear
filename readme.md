@@ -33,7 +33,7 @@ composer install
 - 做 .env 設定檔  
 cp .env.example .env
 
-- 產生 key
+- 產生 key  
 php artisan key:generate
 
 - 修改 .env 檔
