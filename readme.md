@@ -68,9 +68,15 @@ php artisan db:seed
 - 建立設定檔，請參考底下修改成自己系統的
 sudo vim /etc/apache2/sites-available/bear.conf  
 `<VirtualHost *:80>`  
-        ServerName bear.localhost  
-        DocumentRoot /var/www/html/bear/public  
-      `<Directory /var/www/html/bear/public>`  
-        AllowOverride All  
-      `</Directory>`  
+        `ServerName bear.localhost`  
+        `DocumentRoot /var/www/html/bear/public`  
+        `<Directory /var/www/html/bear/public>`  
+          `AllowOverride All`  
+        `</Directory>`  
 `</VirtualHost>`  
+
+## 實測  
+連上 http://localhost (你的網址) 測試
+
+### 網站設計  
+ET Wang wangchifu@gmail.com
