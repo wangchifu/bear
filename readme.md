@@ -39,12 +39,12 @@ php artisan key:generate
 - 修改 .env 檔
 vim .env  
 `APP_NAME=Laravel  //網站名字`  
-`...` 
-`DB_DATABASE=homestead  //資料庫名稱`
-`DB_USERNAME=homestead  //資料庫使用者`
-`DB_PASSWORD=secret  //資料庫使用者密碼`
-`...`
-`DEFAULT_USER_PWD=demo1234 //網站使用者預設密碼` 
+`...`  
+`DB_DATABASE=homestead  //資料庫名稱`  
+`DB_USERNAME=homestead  //資料庫使用者`  
+`DB_PASSWORD=secret  //資料庫使用者密碼`  
+`...`  
+`DEFAULT_USER_PWD=demo1234 //網站使用者預設密碼`  
 
 - 設定下載目錄及暫存目錄權限為777  
 sudo chmod 777 -R storage bootstrap/cache
@@ -67,7 +67,7 @@ php artisan db:seed
 ### 修改 apache 設定，將網站根目錄指到 bear/public，你最好有一個 domain name
 - 建立設定檔，請參考底下修改成自己系統的
 sudo vim /etc/apache2/sites-available/bear.conf  
-`<VirtualHost *:80>`  
+`<VirtualHost *:80>  `  
         `ServerName bear.localhost`  
         `DocumentRoot /var/www/html/bear/public`  
         `<Directory /var/www/html/bear/public>`  
