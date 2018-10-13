@@ -57,20 +57,20 @@ sudo service apache2 restart
 - 如 .env 設定，新增一個資料庫(亦可使用phpMyAdmin)  
 mysqladmin -u使用者 -p create 資料庫名  
 
-- 造資料表
+- 造資料表  
 cd bear  
 php artisan migrate  
 
-- 建啟始值(注意，此指令僅能使用一次，否則會清空資料庫)
-php artisan db:seed 
+- 建啟始值(注意，此指令僅能使用一次，否則會清空資料庫)  
+php artisan db:seed
 
 ### 修改 apache 設定，將網站根目錄指到 bear/public，你最好有一個 domain name
 - 建立設定檔，請參考底下修改成自己系統的
 sudo vim /etc/apache2/sites-available/bear.conf  
-`<VirtualHost *:80>`
-        ServerName bear.localhost
-        DocumentRoot /var/www/html/bear/public
-      `<Directory /var/www/html/bear/public>`
-        AllowOverride All
-      `</Directory>`
-`</VirtualHost>`
+`<VirtualHost *:80>`  
+        ServerName bear.localhost  
+        DocumentRoot /var/www/html/bear/public  
+      `<Directory /var/www/html/bear/public>`  
+        AllowOverride All  
+      `</Directory>`  
+`</VirtualHost>`  
