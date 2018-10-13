@@ -66,7 +66,7 @@ php artisan db:seed
 ### 修改 apache 設定，將網站根目錄指到 bear/public，你最好有一個 domain name
 - 建立設定檔，請參考底下修改成自己系統的
 sudo vim /etc/apache2/sites-available/bear.conf
-<code>
+   <blockquote>
 <VirtualHost *:80>
         ServerName bear.localhost
         DocumentRoot /var/www/html/bear/public
@@ -74,4 +74,4 @@ sudo vim /etc/apache2/sites-available/bear.conf
         AllowOverride All
         </Directory>
 </VirtualHost>
-</code>
+   </blockquote>
