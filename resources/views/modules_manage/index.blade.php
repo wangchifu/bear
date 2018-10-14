@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','首頁')
+@section('title','模組權限管理')
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -88,6 +88,9 @@
                 <hr>
                 <lable for="name">所屬分類</lable>
                 {{ Form::select('module_id',$folder_path,$folder_id,['id'=>'module_id','class' => 'form-control', 'required' => 'required']) }}
+                <hr>
+                <label for="order_by">排序：</label>
+                {{ Form::text('order_by',$show_folder->order_by,['id'=>'order_by','class' => 'form-control', 'required' => 'required']) }}
                 <hr>
                 <div class="form-group form-check">
                     <input type="checkbox" name="active" class="form-check-input" id="Check1" {{ $show_folder->active }}>

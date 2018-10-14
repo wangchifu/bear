@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ModuleRequest;
 use App\Module;
 use Illuminate\Http\Request;
 
@@ -92,7 +93,7 @@ class ModulesManageController extends Controller
         return view('modules_manage.folder',$data);
     }
 
-    public function folder_store(Request $request)
+    public function folder_store(ModuleRequest $request)
     {
         $att = $request->all();
         $att['type'] = "folder";
@@ -100,6 +101,11 @@ class ModulesManageController extends Controller
         Module::create($att);
 
         return redirect()->route('modules_manage.index');
+
+    }
+
+    public function folder_update(Request $request)
+    {
 
     }
 }

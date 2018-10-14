@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','首頁')
+@section('title','模組權限管理')
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -15,6 +15,7 @@
             </ul>
         </div>
     </div>
+    @include('layouts.form_error')
     {{ Form::open(['route'=>'modules_manage.folder_store','method'=>'post']) }}
     <div class="row">
         <div class="form-group">
