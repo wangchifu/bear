@@ -18,7 +18,7 @@ class ModulesTableSeeder extends Seeder
             'type' => "folder",
             'module_id' => "0",
             'order_by' =>'1',
-            'active'=>'on',
+            'active'=>'checked',
         ]);
 
 
@@ -27,21 +27,21 @@ class ModulesTableSeeder extends Seeder
             'type' => "folder",
             'module_id' => "0",
             'order_by' =>'2',
-            'active'=>'on',
+            'active'=>'checked',
         ]);
         \App\Module::create([
             'name' => '教學組',
             'type' => "folder",
             'module_id' => "2",
             'order_by' =>'1',
-            'active'=>'on',
+            'active'=>'checked',
         ]);
         \App\Module::create([
             'name' => '註冊組',
             'type' => "folder",
             'module_id' => "2",
             'order_by' =>'2',
-            'active'=>'on',
+            'active'=>'checked',
         ]);
 
 
@@ -50,28 +50,28 @@ class ModulesTableSeeder extends Seeder
             'type' => "folder",
             'module_id' => "0",
             'order_by' =>'3',
-            'active'=>'on',
+            'active'=>'checked',
         ]);
         \App\Module::create([
             'name' => '總務處',
             'type' => "folder",
             'module_id' => "0",
             'order_by' =>'4',
-            'active'=>'on',
+            'active'=>'checked',
         ]);
         \App\Module::create([
             'name' => '輔導室',
             'type' => "folder",
             'module_id' => "0",
             'order_by' =>'5',
-            'active'=>'on',
+            'active'=>'checked',
         ]);
         \App\Module::create([
             'name' => '系統管理',
             'type' => "folder",
             'module_id' => "0",
             'order_by' =>'6',
-            'active'=>'on',
+            'active'=>'checked',
         ]);
 
         \App\Module::create([
@@ -79,7 +79,7 @@ class ModulesTableSeeder extends Seeder
             'type' => "module",
             'module_id' => "8",
             'order_by' =>'1',
-            'active'=>'on',
+            'active'=>'checked',
         ]);
 
     }

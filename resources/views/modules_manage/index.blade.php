@@ -56,17 +56,21 @@
                     {{ $folder->order_by }}
                 </td>
                 <td>
-                    @if($folder->active == "on")
+                    @if($folder->active == "checked")
                         <i class="fas fa-check-circle text-success"></i>
                     @else
                         <i class="fas fa-times-circle text-danger"></i>
                     @endif
                 </td>
                 <td>
-                    <a href="{{ url('modules_manage/'.$folder->id) }}">{{ $folder->name }}</a>
+                    @if($folder->active == "checked")
+                        <a href="{{ url('modules_manage/'.$folder->id) }}">{{ $folder->name }}</a>
+                    @else
+                        <a href="{{ url('modules_manage/'.$folder->id) }}" class="text-secondary">{{ $folder->name }}</a>
+                    @endif
                 </td>
                 <td>
-                    <a href="{{ url('modules_manage/'.$folder->id.'/'.$folder->id) }}">管理</a>
+                    <a href="{{ url('modules_manage/'.$folder_id.'/'.$folder->id) }}">管理</a>
                 </td>
                 <td>
 
@@ -75,6 +79,29 @@
             @endforeach
             </tbody>
         </table>
+        @if(!empty($show_folder))
+        <div class="col-6">
+            {{ Form::open(['route'=>'modules_manage.folder_update','method'=>'patch']) }}
+            <div class="form-control">
+                <lable for="name">中文名稱</lable>
+                {{ Form::text('name',$show_folder->name,['id'=>'name','class' => 'form-control']) }}
+                <hr>
+                <lable for="name">所屬分類</lable>
+                {{ Form::select('module_id',$folder_path,$folder_id,['id'=>'module_id','class' => 'form-control', 'required' => 'required']) }}
+                <hr>
+                <div class="form-group form-check">
+                    <input type="checkbox" name="active" class="form-check-input" id="Check1" {{ $show_folder->active }}>
+                    <label class="form-check-label" for="Check1">立即啟用</label>
+                </div>
+                <hr>
+                <lable for="name">模組授權</lable>
+                {{ Form::text('name',null,['id'=>'name','class' => 'form-control']) }}
+                <hr>
+                <a href="" class="btn btn-primary btn-sm">儲存</a>
+            </div>
+            {{ Form::close() }}
+        </div>
+        @endif
     </div>
 </div>
 @endsection
