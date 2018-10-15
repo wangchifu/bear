@@ -39,3 +39,6 @@ include('bear_school_setup.php');
 
 //模組管理
 include('bear_modules_manage.php');
+
+//模組管理
+include('bear_teachers_manage.php');

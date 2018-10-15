@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('name');
             $table->tinyInteger('admin')->nullable();
+            $table->tinyInteger('condition')->nullable();//0在職，1調出，2退休，3代課期滿，4資遣
             $table->rememberToken();
             $table->timestamps();
         });

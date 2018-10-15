@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="form-group">
+        <div class="form-group col-12">
             <h2>學校設定</h2>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -19,7 +19,8 @@
         </div>
     </div>
     <div class="row">
-        <table class="table table-striped table-bordered">
+        <div class="form-group col-12">
+            <table class="table table-striped table-bordered">
             <thead class="bg-light">
             <tr>
                 <th>
@@ -79,6 +80,7 @@
             @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 @endsection

@@ -40,6 +40,25 @@
             </tr>
             </thead>
             <tbody>
+            {{ Form::open(['route'=>'school_setup.school_room_store','method'=>'store']) }}
+            <tr>
+                <td>
+
+                </td>
+                <td>
+                    {{ Form::text('name',null,['id'=>'name','class'=>'form-control','required'=>'required']) }}
+                </td>
+                <td>
+                    {{ Form::text('telephone_number',null,['id'=>'telephone_number','class'=>'form-control']) }}
+                </td>
+                <td>
+                    {{ Form::text('fax',null,['id'=>'fax','class'=>'form-control']) }}
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('確定新增？')">新增</button>
+                </td>
+            </tr>
+            {{ Form::close() }}
             @foreach($school_rooms as $school_room)
                 @if($school_room->id == $edit_school_room->id)
                     {{ Form::model($school_room,['route'=>['school_setup.school_room_update',$school_room->id],'method'=>'patch']) }}

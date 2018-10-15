@@ -154,6 +154,12 @@
                     </div>
                 </li>
                 <li>
+                    <a href="{{ route('teachers_manage.index') }}">
+                        <i class="fa fa-calendar"></i>
+                        <span>教師管理</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('school_setup.index') }}">
                         <i class="fa fa-calendar"></i>
                         <span>學校設定</span>

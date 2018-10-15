@@ -47,6 +47,31 @@
             </tr>
             </thead>
             <tbody>
+            {{ Form::open(['route'=>'school_setup.school_title_store','method'=>'store','files'=>true]) }}
+            <tr>
+                <td>
+                    {{ Form::text('order_by',null,['id'=>'order_by','class'=>'form-control','required'=>'required']) }}
+                </td>
+                <td>
+                    {{ Form::text('name',null,['id'=>'name','class'=>'form-control','required'=>'required']) }}
+                </td>
+                <td>
+                    {{ Form::text('short_name',null,['id'=>'short_name','class'=>'form-control','required'=>'required']) }}
+                </td>
+                <td>
+                    {{ Form::select('title_kind',$title_kind_select,null,['class'=>'form-control']) }}
+                </td>
+                <td>
+                    {{ Form::select('school_room_id',$school_room_select,null,['class'=>'form-control']) }}
+                </td>
+                <td>
+                    {{ Form::file('file', ['class' => 'form-control']) }}
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('確定新增？')">新增</button>
+                </td>
+            </tr>
+            {{ Form::close() }}
             @foreach($school_titles as $school_title)
                 @if($school_title->id == $edit_school_title->id)
                     {{ Form::model($edit_school_title,['route'=>['school_setup.school_title_update',$school_title->id],'method'=>'patch','files'=>true]) }}
