@@ -27,4 +27,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function teacher_base()
+    {
+        return $this->hasOne(TeacherBase::class);
+    }
 }
