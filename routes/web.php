@@ -29,12 +29,8 @@ Route::get('file/{file}', 'HomeController@getFile');
 //下載public的檔案
 Route::get('public_file/{file}', 'HomeController@getPublicFile');
 
-//管理員
-Route::group(['middleware' => 'admin'],function(){
-    Route::get('admin', 'HomeController@admin')->name('admin');
-});
 
-//管理員
+//註冊會員
 Route::group(['middleware' => 'auth'],function(){
     Route::get('admin/{folder}', 'HomeController@main')->where('folder', '[0-9]+')->name('main');
 });

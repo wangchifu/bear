@@ -5,6 +5,7 @@
     <div class="row">
         <div class="form-group">
             <h2>學校設定</h2>
+            @include('layouts.module_nav')
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('school_setup.index') }}">基本資料</a>

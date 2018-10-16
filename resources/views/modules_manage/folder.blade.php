@@ -5,6 +5,7 @@
     <div class="row">
         <div class="form-group col-12">
             <h2>模組權限管理</h2>
+            @include('layouts.module_nav')
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('modules_manage.index') }}">模組管理</a>

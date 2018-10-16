@@ -5,6 +5,7 @@
     <div class="row">
         <div class="form-group col-12">
             <h2>教師管理</h2>
+            @include('layouts.module_nav')
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a class="nav-link active" href="{{ route('teachers_manage.index') }}">基本任職資料</a>

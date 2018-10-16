@@ -32,8 +32,8 @@ if (! function_exists('get_sidebar')) {
             }
             $i++;
         }
-
-
         return $sidebar;
     }
 }
+
+//是否有權限
