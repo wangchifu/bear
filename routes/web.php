@@ -34,6 +34,11 @@ Route::group(['middleware' => 'admin'],function(){
     Route::get('admin', 'HomeController@admin')->name('admin');
 });
 
+//管理員
+Route::group(['middleware' => 'auth'],function(){
+    Route::get('admin/{folder}', 'HomeController@main')->where('folder', '[0-9]+')->name('main');
+});
+
 //學校設定
 include('bear_school_setup.php');
 

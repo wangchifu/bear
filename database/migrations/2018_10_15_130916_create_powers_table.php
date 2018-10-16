@@ -15,8 +15,10 @@ class CreatePowersTable extends Migration
     {
         Schema::create('powers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type');//授權種類：all_users全部教師；school_room處室；school_title職稱；user教師
+            $table->unsignedInteger('module_id');//模組id
+            $table->unsignedInteger('type');//授權種類：0全部教師；1處室；2職稱；3教師
             $table->unsignedInteger('allow_id')->nullable();//允許的school_roomm_id或school_title_id或user_id
+            $table->tinyInteger('admin')->nullable();//1是該模組的管理權,null是一般
             $table->timestamps();
         });
     }

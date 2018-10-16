@@ -8,5 +8,6 @@ Route::group(['middleware' => 'admin'],function(){
     Route::patch('teachers_manage/update', 'TeachersManageController@update')->name('teachers_manage.update');
     Route::post('teachers_manage/store', 'TeachersManageController@store')->name('teachers_manage.store');
     Route::post('teachers_manage/check', 'TeachersManageController@check')->name('teachers_manage.check');
+    Route::get('teachers_manage/list', 'TeachersManageController@list')->name('teachers_manage.list');
 
 });

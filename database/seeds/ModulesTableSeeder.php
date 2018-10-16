@@ -76,8 +76,27 @@ class ModulesTableSeeder extends Seeder
 
         \App\Module::create([
             'name' => '模組權限管理',
+            'english_name'=>'modules_manage',
             'type' => "module",
             'module_id' => "8",
+            'order_by' =>'1',
+            'active'=>'checked',
+        ]);
+
+        \App\Module::create([
+            'name' => '學校設定',
+            'english_name'=>'school_setup',
+            'type' => "module",
+            'module_id' => "2",
+            'order_by' =>'1',
+            'active'=>'checked',
+        ]);
+
+        \App\Module::create([
+            'name' => '教師管理',
+            'english_name'=>'teachers_manage',
+            'type' => "module",
+            'module_id' => "2",
             'order_by' =>'1',
             'active'=>'checked',
         ]);

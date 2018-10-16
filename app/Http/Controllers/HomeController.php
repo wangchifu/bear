@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
+use App\Module;
 
 class HomeController extends Controller
 {
@@ -31,6 +32,17 @@ class HomeController extends Controller
     public function admin()
     {
         return view('admin');
+    }
+
+    public function main(Module $folder)
+    {
+        $modules = Module::where('module_id',$folder->id)->get();
+
+        $data = [
+            'folder'=>$folder,
+            'modules'=>$modules,
+        ];
+        return view('main',$data);
     }
 
     public function getImg($path)

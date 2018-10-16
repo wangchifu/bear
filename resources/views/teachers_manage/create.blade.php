@@ -10,7 +10,7 @@
                     <a class="nav-link active" href="{{ route('teachers_manage.index') }}">基本任職資料</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">在職教師一覽表</a>
+                    <a class="nav-link" href="{{ route('teachers_manage.list') }}">在職教師一覽表</a>
                 </li>
             </ul>
         </div>
@@ -149,7 +149,7 @@
                                     },
                                     success: function (result) {
                                         if (result == 'success') {
-                                            alert('可以使用此帳號!');
+
 
                                         } else {
                                             alert("此帳號已被使用");

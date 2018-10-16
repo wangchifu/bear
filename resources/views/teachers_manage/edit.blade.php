@@ -10,7 +10,7 @@
                     <a class="nav-link active" href="{{ route('teachers_manage.index') }}">基本任職資料</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">在職教師一覽表</a>
+                    <a class="nav-link" href="{{ route('teachers_manage.list') }}">在職教師一覽表</a>
                 </li>
             </ul>
         </div>
@@ -41,7 +41,12 @@
                                             {{ Form::text('name',$this_user->name,['id'=>'name','class'=>'form-control','required'=>'required']) }}
                                         </td>
                                         <td rowspan="5" width="200">
-                                            <img src="{{ url('img/teacher_photo&'.$this_user->teacher_base->photo) }}" width="200">
+                                            @if(empty($this_user->teacher_base->photo))
+                                                <img src="{{ asset('img/user.svg') }}" width="200">
+                                            @else
+                                                <img src="{{ url('img/teacher_photo&'.$this_user->teacher_base->photo) }}" width="200">
+                                            @endif
+
                                             {{ Form::file('file', ['class' => 'form-control']) }}
                                         </td>
                                     </tr>

@@ -16,6 +16,7 @@ class CreateModulesTable extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');//中文名稱
+            $table->string('english_name')->nullable();//中文名稱
             $table->string('type');//module或是folder
             $table->unsignedInteger('module_id');//在哪個 folder 下
             $table->unsignedInteger('order_by');//排序

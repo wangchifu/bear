@@ -239,4 +239,29 @@ class TeachersManageController extends Controller
         $user->teacher_base->update($att2);
         return redirect()->route('teachers_manage.index');
     }
+
+    public function list()
+    {
+        $users = User::where('condition','0')
+            ->get();
+        $user_data=[];
+        //職稱類別選項
+        $title_kind_select = config('app.title_kind');
+
+        foreach($users as $user){
+            $order_by = $user->teacher_base->school_title->order_by;
+            $user_data[$order_by]['username'] = $user->username;
+            $user_data[$order_by]['name'] = $user->name;
+            $user_data[$order_by]['id'] = $user->id;
+            $user_data[$order_by]['title_kind'] = $title_kind_select[$user->teacher_base->title_kind_id];
+            $user_data[$order_by]['school_title'] = $user->teacher_base->school_title->name;
+            $user_data[$order_by]['photo'] = $user->teacher_base->photo;
+        }
+        ksort($user_data);
+
+        $data = [
+            'user_data'=>$user_data,
+        ];
+        return view('teachers_manage.list',$data);
+    }
 }

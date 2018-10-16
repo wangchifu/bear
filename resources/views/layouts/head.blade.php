@@ -9,5 +9,5 @@
     <link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('pro_sidebar_template/assets/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('pro_sidebar_template/assets/css/custom-themes.css') }}">
-    <link rel="shortcut icon" type="image/png" href="{{ asset('pro_sidebar_template/assets/img/favicon.png') }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('img/teddy-bear.png') }}" />
 </head>

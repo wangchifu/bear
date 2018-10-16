@@ -44,154 +44,22 @@
         <div class="sidebar-menu">
             <ul>
                 <li class="header-menu">
-                    <span>General</span>
+                    <span>系統功能</span>
                 </li>
-                <li class="sidebar-dropdown">
-                    <a href="#">
-                        <i class="fa fa-tachometer-alt"></i>
-                        <span>Dashboard</span>
-                        <span class="badge badge-pill badge-danger">New</span>
-                    </a>
-                    <div class="sidebar-submenu">
-                        <ul>
-                            <li>
-                                <a href="#">Dashboard 1
-                                    <span class="badge badge-pill badge-success">Pro</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Dashboard 2</a>
-                            </li>
-                            <li>
-                                <a href="#">Dashboard 3</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="sidebar-dropdown">
-                    <a href="#">
-                        <i class="fa fa-shopping-cart"></i>
-                        <span>E-commerce</span>
-                        <span class="badge badge-pill badge-primary">3</span>
-                    </a>
-                    <div class="sidebar-submenu">
-                        <ul>
-                            <li>
-                                <a href="#">Products
+                @auth
+                    <?php
+                        $sidebar = get_sidebar(auth()->user());
+                    ?>
+                    @foreach($sidebar as $k=>$v)
+                        <li>
+                            <a href="{{ route('main',$v['id']) }}">
+                                <i class="fa fa-folder"></i>
+                                <span>{{ $v['name'] }}</span>
+                            </a>
+                        </li>
+                    @endforeach
+                @endauth
 
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Orders</a>
-                            </li>
-                            <li>
-                                <a href="#">Credit cart</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="sidebar-dropdown">
-                    <a href="#">
-                        <i class="far fa-gem"></i>
-                        <span>Components</span>
-                    </a>
-                    <div class="sidebar-submenu">
-                        <ul>
-                            <li>
-                                <a href="#">General</a>
-                            </li>
-                            <li>
-                                <a href="#">Panels</a>
-                            </li>
-                            <li>
-                                <a href="#">Tables</a>
-                            </li>
-                            <li>
-                                <a href="#">Icons</a>
-                            </li>
-                            <li>
-                                <a href="#">Forms</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="sidebar-dropdown">
-                    <a href="#">
-                        <i class="fa fa-chart-line"></i>
-                        <span>Charts</span>
-                    </a>
-                    <div class="sidebar-submenu">
-                        <ul>
-                            <li>
-                                <a href="#">Pie chart</a>
-                            </li>
-                            <li>
-                                <a href="#">Line chart</a>
-                            </li>
-                            <li>
-                                <a href="#">Bar chart</a>
-                            </li>
-                            <li>
-                                <a href="#">Histogram</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="sidebar-dropdown">
-                    <a href="#">
-                        <i class="fa fa-globe"></i>
-                        <span>Maps</span>
-                    </a>
-                    <div class="sidebar-submenu">
-                        <ul>
-                            <li>
-                                <a href="#">Google maps</a>
-                            </li>
-                            <li>
-                                <a href="#">Open street map</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                    <a href="{{ route('teachers_manage.index') }}">
-                        <i class="fa fa-calendar"></i>
-                        <span>教師管理</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('school_setup.index') }}">
-                        <i class="fa fa-calendar"></i>
-                        <span>學校設定</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('modules_manage.index') }}">
-                        <i class="fa fa-calendar"></i>
-                        <span>模組權限管理</span>
-                    </a>
-                </li>
-                <li class="header-menu">
-                    <span>額外</span>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-calendar"></i>
-                        <span>.......</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-folder"></i>
-                        <span>Examples</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-book"></i>
-                        <span>Documentation</span>
-                    </a>
-                </li>
             </ul>
         </div>
         <!-- sidebar-menu  -->
