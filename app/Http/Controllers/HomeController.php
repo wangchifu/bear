@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Auth;
 use App\Module;
 
 class HomeController extends Controller
@@ -14,10 +15,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        //$this->middleware('folder_power');
-    }
 
     /**
      * Show the application dashboard.
@@ -81,5 +78,11 @@ class HomeController extends Controller
         $file = str_replace('&','/',$file);
         $file = public_path($file);
         return response()->download($file);
+    }
+
+    public function impersonate_leave()
+    {
+        Auth::user()->leaveImpersonation();
+        return redirect()->route('index');
     }
 }

@@ -84,6 +84,15 @@ class ModulesTableSeeder extends Seeder
         ]);
 
         \App\Module::create([
+            'name' => '身分模擬',
+            'english_name'=>'simulation',
+            'type' => "module",
+            'module_id' => "8",
+            'order_by' =>'2',
+            'active'=>'checked',
+        ]);
+
+        \App\Module::create([
             'name' => '學校設定',
             'english_name'=>'school_setup',
             'type' => "module",

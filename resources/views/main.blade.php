@@ -21,13 +21,13 @@
                 <div class="col-2">
                     @if($module->type=="folder")
                         <div>
-                            <a href="{{ route('main',$module->id) }}"><img class="img-thumbnail" src="{{ asset('img/theme/1/folder.svg') }}">
+                            <a href="{{ route('main',$module->id) }}"><img class="img-thumbnail" src="{{ asset('img/theme/folder.svg') }}">
                             <br>
                             {{ $module->name }}</a>
                         </div>
                     @else
                         <div>
-                            <a href="{{ route($module->english_name.'.index') }}"><img class="img-thumbnail" src="{{ asset('img/theme/1/'.$module->english_name.'.svg') }}">
+                            <a href="{{ route($module->english_name.'.index') }}"><img class="img-thumbnail" src="{{ asset('img/theme/'.$module->english_name.'.svg') }}">
                             <br>
                             {{ $module->name }}</a>
                         </div>

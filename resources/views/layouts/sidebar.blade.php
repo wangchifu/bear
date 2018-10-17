@@ -7,9 +7,6 @@
             </div>
         </div>
         @auth
-            <?php
-            dd(session()) ;
-            ?>
         <div class="sidebar-header">
             <div class="user-pic">
                 <img class="img-responsive img-rounded" src="{{ asset('pro_sidebar_template/assets/img/user.jpg') }}" alt="User picture">
@@ -24,8 +21,12 @@
                             <i class="fa fa-sign-out-alt text-danger"></i>
                             <span>登出</span>
                         </a>
+                    @impersonating
+                        <a href="{{ route('simulation.impersonate_leave') }}" style="color:#ffffff;text-decoration: none" onclick="return confirm('確定返回原本帳琥？')">
+                            <i class="fas fa-chevron-left text-warning"></i>
+                            <span>結束模擬</span></a>
+                    @endImpersonating
                         </span>
-
             </div>
         </div>
         @endauth

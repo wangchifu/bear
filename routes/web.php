@@ -35,11 +35,19 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('main/{folder}', 'HomeController@main')->where('folder', '[0-9]+')->name('main');
 });
 
-//學校設定
-include('bear_school_setup.php');
 
-//模組管理
-include('bear_modules_manage.php');
+$files = [];
+if ($handle = opendir(env('INSTALL_FOLDER').'routes/bear')) { //開啟現在的資料夾
+    while (false !== ($name = readdir($handle))) {
+        //避免搜尋到的資料夾名稱是false,像是0
+        if ($name != "." && $name != "..") {
+            $files[] = $name;
+        }
+    }
+    closedir($handle);
+}
 
-//模組管理
-include('bear_teachers_manage.php');
+//將 bear 目錄下的檔案都include進來
+foreach($files as $v){
+    include('bear/'.$v);
+}
