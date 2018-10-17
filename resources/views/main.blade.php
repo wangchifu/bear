@@ -17,22 +17,27 @@
                 </ol>
             </nav>
             <div class="row">
-                @foreach($modules as $module)
-                <div class="col-2">
-                    @if($module->type=="folder")
-                        <div>
-                            <a href="{{ route('main',$module->id) }}"><img class="img-thumbnail" src="{{ asset('img/theme/folder.svg') }}">
-                            <br>
-                            {{ $module->name }}</a>
-                        </div>
-                    @else
-                        <div>
-                            <a href="{{ route($module->english_name.'.index') }}"><img class="img-thumbnail" src="{{ asset('img/theme/'.$module->english_name.'.svg') }}">
-                            <br>
-                            {{ $module->name }}</a>
+                @foreach($folders as $folder)
+                    @if(check_power('folder',$folder->id))
+                        <div class="col-2">
+                            <div>
+                                <a href="{{ route('main',$folder->id) }}"><img class="img-thumbnail" src="{{ asset('img/theme/folder.svg') }}">
+                                    <br>
+                                    {{ $folder->name }}</a>
+                            </div>
                         </div>
                     @endif
-                </div>
+                @endforeach
+                @foreach($modules as $module)
+                    @if(check_power('module',$module->english_name))
+                        <div class="col-2">
+                            <div>
+                                <a href="{{ route($module->english_name.'.index') }}"><img class="img-thumbnail" src="{{ asset('img/theme/'.$module->english_name.'.svg') }}">
+                                <br>
+                                {{ $module->name }}</a>
+                            </div>
+                        </div>
+                    @endif
                 @endforeach
             </div>
         </div>

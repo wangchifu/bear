@@ -17,6 +17,15 @@ class ModulePowerMiddleware
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        $this_module = explode('/',$_SERVER['REQUEST_URI']);
+        $english_name = $this_module[1];
+        if(check_power('module',$english_name)){
+            return $next($request);
+        }else{
+            $words = "你沒有權限！";
+            return  response()->view('layouts.wrong',compact('words'));
+        }
+        /**
         //系統管理員直接pass
         if(auth()->user()->admin == 1){
             return $next($request);
@@ -52,5 +61,6 @@ class ModulePowerMiddleware
 
         $words = "你沒有權限！";
         return  response()->view('layouts.wrong',compact('words'));
+         * */
     }
 }

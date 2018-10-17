@@ -17,6 +17,15 @@ class FolderPowerMiddleware
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        $folder = $request->route()->parameter('folder');
+        if(check_power('folder',$folder->id)){
+            return $next($request);
+        }else{
+            $words = "你沒有權限！";
+            return  response()->view('layouts.wrong',compact('words'));
+        }
+
+            /**
         //系統管理員直接pass
         if(auth()->user()->admin == 1){
             return $next($request);
@@ -51,5 +60,6 @@ class FolderPowerMiddleware
 
         $words = "你沒有權限！";
         return  response()->view('layouts.wrong',compact('words'));
+             * */
     }
 }

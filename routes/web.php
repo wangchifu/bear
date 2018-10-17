@@ -32,7 +32,8 @@ Route::get('public_file/{file}', 'HomeController@getPublicFile');
 
 //註冊會員
 Route::group(['middleware' => 'auth'],function(){
-    Route::get('main/{folder}', 'HomeController@main')->where('folder', '[0-9]+')->name('main');
+    Route::get('main/{folder}', 'MainController@main')->where('folder', '[0-9]+')->name('main');
+    Route::get('other', 'HomeController@other')->name('other');
 });
 
 

@@ -62,6 +62,12 @@
                             </a>
                         </li>
                     @endforeach
+                <li>
+                    <a href="{{ route('other') }}">
+                        <i class="fas fa-th-large"></i>
+                        <span>全部授權模組</span>
+                    </a>
+                </li>
             </ul>
         </div>
         @endauth

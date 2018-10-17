@@ -10,17 +10,7 @@ use App\Module;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return view('index');
@@ -31,28 +21,24 @@ class HomeController extends Controller
         return view('admin');
     }
 
-    public function main(Module $folder)
+    public function other()
     {
-
-        $modules = Module::where('module_id',$folder->id)->get();
-
-        $father_folder_id = $folder->module_id;
-        $path[$folder->id] = $folder->name;
-        while($father_folder_id != "0"){
-            $father_folder = Module::where('id',$father_folder_id)->first();
-            $path[$father_folder->id] = $father_folder->name;
-            $father_folder_id = $father_folder->module_id;
+        $modules = Module::where('type','module')
+            ->get();
+        foreach($modules as $module){
+            if(check_power('module',$module->english_name)){
+                $power_modules[$module->id]['name'] = $module->name;
+                $power_modules[$module->id]['english_name'] = $module->english_name;
+            }
         }
-        //倒序array，並保留key值
-        $path = array_reverse($path,true);
 
         $data = [
-            'folder'=>$folder,
-            'modules'=>$modules,
-            'path'=>$path,
+            'power_modules'=>$power_modules,
         ];
-        return view('main',$data);
+
+        return view('other',$data);
     }
+
 
     public function getImg($path)
     {
