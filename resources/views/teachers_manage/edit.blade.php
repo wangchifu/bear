@@ -98,7 +98,7 @@
                                             <label for="birthday">生日</label>
                                         </td>
                                         <td>
-                                            {{ Form::text('birthday',$this_user->teacher_base->birthday,['id'=>'birthday','class'=>'form-control','placeholder'=>'如：1978-1026','maxlength'=>'10']) }}
+                                            {{ Form::text('birthday',$this_user->teacher_base->birthday,['id'=>'birthday','class'=>'form-control','placeholder'=>'如：1978-10-26','maxlength'=>'10']) }}
                                         </td>
                                         <td>
                                             <label for="telephone_number">電話號碼</label>

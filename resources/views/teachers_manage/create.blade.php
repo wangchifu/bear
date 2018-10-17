@@ -26,6 +26,7 @@
                             @include('teachers_manage.teacher_menu')
                         </div>
                         <div class="col-9">
+                            @include('layouts.form_error')
                             {{ Form::open(['route'=>'teachers_manage.store','method'=>'post','id'=>'add_teacher','files'=>true]) }}
                             <table class="table table-striped">
                                 <tr>
@@ -33,7 +34,7 @@
                                         <label for="username">教師代號</label>
                                     </td>
                                     <td>
-                                        {{ Form::text('username',null,['id'=>'username','class'=>'form-control','required'=>'required','onchange'=>'check()']) }}
+                                        {{ Form::text('username',null,['id'=>'username','class'=>'form-control','required'=>'required','onchange'=>'check_username()']) }}
                                     </td>
                                     <td width="90">
                                         <label for="name">姓名</label>
@@ -78,7 +79,7 @@
                                         <label for="person_id">身分證號</label>
                                     </td>
                                     <td>
-                                        {{ Form::text('person_id',null,['id'=>'person_id','class'=>'form-control','maxlength'=>'10']) }}
+                                        {{ Form::text('person_id',null,['id'=>'person_id','class'=>'form-control','maxlength'=>'10','onchange'=>'check_id()']) }}
                                     </td>
                                     <td>
                                         <label for="sex">性別</label>
@@ -92,7 +93,7 @@
                                         <label for="birthday">生日</label>
                                     </td>
                                     <td>
-                                        {{ Form::text('birthday',null,['id'=>'birthday','class'=>'form-control','placeholder'=>'如：1978-1026','maxlength'=>'10']) }}
+                                        {{ Form::text('birthday',null,['id'=>'birthday','class'=>'form-control','placeholder'=>'如：1978-10-26','maxlength'=>'10']) }}
                                     </td>
                                     <td>
                                         <label for="telephone_number">電話號碼</label>
@@ -136,10 +137,10 @@
                             {{ Form::close() }}
                         </div>
                         <script>
-                            function check(){
+                            function check_username(){
                                 $.ajax({
                                     type: "POST",
-                                    url: "{{ route('teachers_manage.check') }}",
+                                    url: "{{ route('teachers_manage.check_username') }}",
                                     dataType: 'json',
                                     data: $("#add_teacher").serialize(),
 
@@ -156,6 +157,32 @@
                                             alert("此帳號已被使用");
                                             $('#username').val('');
                                             $('#username').focus();
+
+                                        }
+                                    }
+                                });
+                            }
+
+                            function check_id(){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{ route('teachers_manage.check_id') }}",
+                                    dataType: 'json',
+                                    data: $("#add_teacher").serialize(),
+
+                                    error: function (result) {
+                                        alert("連接失敗");
+                                        $('#person_id').val('');
+                                        $('#person_id').focus();
+                                    },
+                                    success: function (result) {
+                                        if (result == 'success') {
+
+
+                                        } else {
+                                            alert("此身分證號已被使用");
+                                            $('#person_id').val('');
+                                            $('#person_id').focus();
 
                                         }
                                     }

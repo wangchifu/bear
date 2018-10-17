@@ -19,7 +19,7 @@ class CreateTeacherBasesTable extends Migration
             $table->unsignedInteger('school_room_id')->nullable();//處室代碼
             $table->unsignedInteger('title_kind_id')->nullable();//職別代碼
             $table->unsignedInteger('school_title_id')->nullable();//職稱代碼
-            $table->string('person_id')->nullable();//身分證
+            $table->string('person_id')->unique()->nullable();//身分證
             $table->tinyInteger('sex')->nullable();//性別
             $table->string('birthday')->nullable();//生日
             $table->string('telephone_number')->nullable();//電話

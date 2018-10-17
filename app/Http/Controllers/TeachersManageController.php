@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TeacherManageRequest;
 use App\SchoolRoom;
 use App\SchoolTitle;
 use App\TeacherBase;
@@ -10,6 +11,11 @@ use App\User;
 
 class TeachersManageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('module_power');
+    }
+
     public function index(Request $request)
     {
         //若無傳值condition，則為0在職
@@ -101,7 +107,7 @@ class TeachersManageController extends Controller
         return view('teachers_manage.create',$data);
     }
 
-    public function store(Request $request)
+    public function store(TeacherManageRequest $request)
     {
         $att['username'] = str_replace(' ','',$request->input('username'));
         $att['password'] = bcrypt(env('DEFAULT_USER_PWD'));
@@ -140,9 +146,22 @@ class TeachersManageController extends Controller
         return redirect()->route('teachers_manage.index');
     }
 
-    public function check(Request $request)
+    public function check_username(Request $request)
     {
         $check_user = User::where('username',$request->input('username'))
+            ->first();
+        if(empty($check_user)){
+            $result = 'success';
+        }else{
+            $result = 'failed';
+        }
+        echo json_encode($result);
+        return;
+    }
+
+    public function check_id(Request $request)
+    {
+        $check_user = TeacherBase::where('person_id',$request->input('person_id'))
             ->first();
         if(empty($check_user)){
             $result = 'success';
@@ -208,7 +227,7 @@ class TeachersManageController extends Controller
         return view('teachers_manage.edit',$data);
     }
 
-    public function update(Request $request)
+    public function update(TeacherManageRequest $request)
     {
         $user = User::where('id',$request->input('user_id'))
             ->first();

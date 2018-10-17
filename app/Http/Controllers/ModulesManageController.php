@@ -12,10 +12,21 @@ use Illuminate\Http\Request;
 
 class ModulesManageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('module_power');
+    }
+
     //模組管理
     public function index($folder_id=0,$folder=null)
     {
+
         $folders = Module::where('type','folder')
+            ->where('module_id',$folder_id)
+            ->orderBy('order_by')
+            ->get();
+
+        $modules = Module::where('type','module')
             ->where('module_id',$folder_id)
             ->orderBy('order_by')
             ->get();
@@ -108,6 +119,7 @@ class ModulesManageController extends Controller
         $data = [
             'folder_id'=>$folder_id,
             'folders'=>$folders,
+            'modules'=>$modules,
             'breadcrumb'=>$breadcrumb,
             'show_folder'=>$show_folder,
             'folder_path'=>$folder_path,
@@ -183,7 +195,7 @@ class ModulesManageController extends Controller
 
         $folder = $request->input('folder');
         $folder_id = $request->input('folder_id');
-        return redirect('modules_manage/'.$folder_id.'/'.$folder);
+        return redirect('modules_manage/'.$att['module_id'].'/'.$folder);
     }
 
     public function power_delete(Request $request,Power $power)

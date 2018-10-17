@@ -81,6 +81,33 @@
                     </td>
                 </tr>
                 @endforeach
+                @foreach($modules as $module)
+                <tr>
+                    <td>
+                        {{ $module->order_by }}
+                    </td>
+                    <td>
+                        @if($module->active == "checked")
+                            <i class="fas fa-check-circle text-success"></i>
+                        @else
+                            <i class="fas fa-times-circle text-danger"></i>
+                        @endif
+                    </td>
+                    <td>
+                        @if($module->active == "checked")
+                            {{ $module->name }}({{ $module->english_name }})
+                        @else
+                            <span class="text-secondary">{{ $module->name }}({{ $module->english_name }})</span>
+                        @endif
+                    </td>
+                    <td>
+                        <a href="{{ url('modules_manage/'.$module->module_id.'/'.$module->id) }}">管理</a>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

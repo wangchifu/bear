@@ -41,12 +41,12 @@
                 </ul>
             </div>
         @endguest
+        @auth
         <div class="sidebar-menu">
             <ul>
                 <li class="header-menu">
                     <span>系統功能</span>
                 </li>
-                @auth
                     <?php
                         $sidebar = get_sidebar(auth()->user());
                     ?>
@@ -58,10 +58,9 @@
                             </a>
                         </li>
                     @endforeach
-                @endauth
-
             </ul>
         </div>
+        @endauth
         <!-- sidebar-menu  -->
     </div>
     <!-- sidebar-content  -->

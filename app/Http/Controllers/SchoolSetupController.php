@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class SchoolSetupController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('module_power');
+    }
+
     public function index()
     {
         $school_base = SchoolBase::find(1);

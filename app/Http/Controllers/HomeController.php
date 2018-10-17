@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('folder_power');
     }
 
     /**
@@ -36,6 +36,7 @@ class HomeController extends Controller
 
     public function main(Module $folder)
     {
+
         $modules = Module::where('module_id',$folder->id)->get();
 
         $father_folder_id = $folder->module_id;

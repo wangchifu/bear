@@ -61,5 +61,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class, //管理員中介層
+        'folder_power' => \App\Http\Middleware\FolderPowerMiddleware::class, //目錄檢查中介層
+        'module_power' => \App\Http\Middleware\ModulePowerMiddleware::class, //目錄檢查中介層
     ];
 }

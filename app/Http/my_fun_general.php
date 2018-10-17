@@ -1,7 +1,7 @@
 <?php
 ///////////////////1.系統管理///////////////////////////////
 
-//顯示sidebar
+//依權限顯示sidebar
 if (! function_exists('get_sidebar')) {
     function get_sidebar($user){
         $folders = \App\Module::where('module_id','0')->get();
@@ -36,4 +36,46 @@ if (! function_exists('get_sidebar')) {
     }
 }
 
-//是否有權限
+//是否有權限瀏覽
+if (! function_exists('check_power')) {
+    function check_power($type,$item){
+        //系統管理員直接pass
+        if(auth()->user()->admin == 1){
+            return true;
+        }
+
+
+        if($type=='folder'){
+            $module = \App\Module::where('id',$item)->first();
+        }
+        if($type=="module"){
+            $module = \App\Module::where('english_name',$item)->first();
+        }
+
+        //如果授權全部教師就pass
+        $power = \App\Power::where('module_id',$module->id)
+            ->where('type','0')
+            ->first();
+
+        if(!empty($power->id)){
+            return true;
+        }
+
+        //如果授權全部教師就pass
+        $powers = \App\Power::where('module_id',$module->id)
+            ->get();
+        foreach($powers as $power){
+            if($power->allow_id == auth()->user()->teacher_base->school_room_id){
+                return true;
+            }
+            if($power->allow_id == auth()->user()->teacher_base->school_title_id){
+                return true;
+            }
+            if($power->allow_id == auth()->user()->id){
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
