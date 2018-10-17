@@ -32,16 +32,16 @@
                                         @endif
                                         <h4 class="col-12 text-success">職別：{{ $v['title_kind'] }}</h4>
                                     @endif
-                                    <div class="col-3">
+                                    <div class="col-2">
                                         <div class="card">
                                             <div class="card-header">
                                                 <h5>{{ $v['school_title'] }}</h5>
                                             </div>
                                             <div class="card-body">
                                                 @if(empty($v['photo']))
-                                                    <img class="align-self-start mr-3" src="{{ asset('img/user.svg') }}" alt="Generic placeholder image" width="100">
+                                                    <img class="img-thumbnail" src="{{ asset('img/smile.svg') }}" alt="Generic placeholder image" width="100">
                                                 @else
-                                                    <img class="align-self-start mr-3" src="{{ url('img/teacher_photo&'.$v['photo']) }}" alt="Generic placeholder image" width="100">
+                                                    <img class="img-thumbnail" src="{{ url('img/teacher_photo&'.$v['photo']) }}" alt="Generic placeholder image" width="100">
                                                 @endif
                                                 <h6 class="mt-0">{{ $v['name'] }}({{ $v['username'] }})</h6>
                                             </div>

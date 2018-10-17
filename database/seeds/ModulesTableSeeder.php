@@ -110,5 +110,14 @@ class ModulesTableSeeder extends Seeder
             'active'=>'checked',
         ]);
 
+        \App\Module::create([
+            'name' => '新生編班',
+            'english_name'=>'temp_compile',
+            'type' => "module",
+            'module_id' => "4",
+            'order_by' =>'1',
+            'active'=>'checked',
+        ]);
+
     }
 }

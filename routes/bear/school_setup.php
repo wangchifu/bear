@@ -14,9 +14,3 @@ Route::post('school_setup/school_title', 'SchoolSetupController@school_title_sto
 Route::get('school_setup/school_title_edit/{school_title}', 'SchoolSetupController@school_title_edit')->name('school_setup.school_title_edit');
 Route::patch('school_setup/school_title/{school_title}', 'SchoolSetupController@school_title_update')->name('school_setup.school_title_update');
 Route::delete('school_setup/school_title/{school_title}', 'SchoolSetupController@school_title_destroy')->name('school_setup.school_title_destroy');
-
-
-//管理員
-Route::group(['middleware' => 'admin'],function(){
-
-});

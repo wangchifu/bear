@@ -7,10 +7,3 @@ Route::post('teachers_manage/store', 'TeachersManageController@store')->name('te
 Route::post('teachers_manage/check_username', 'TeachersManageController@check_username')->name('teachers_manage.check_username');
 Route::post('teachers_manage/check_id', 'TeachersManageController@check_id')->name('teachers_manage.check_id');
 Route::get('teachers_manage/list', 'TeachersManageController@list')->name('teachers_manage.list');
-
-
-//管理員
-Route::group(['middleware' => 'admin'],function(){
-
-
-});

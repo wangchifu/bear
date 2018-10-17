@@ -4,9 +4,3 @@ Route::get('modules_manage/folder', 'ModulesManageController@folder')->name('mod
 Route::post('modules_manage/folder_store', 'ModulesManageController@folder_store')->name('modules_manage.folder_store');
 Route::patch('modules_manage/{module}/folder_update', 'ModulesManageController@folder_update')->name('modules_manage.folder_update');
 Route::delete('modules_manage/{power}/power_delete', 'ModulesManageController@power_delete')->name('modules_manage.power_delete');
-
-
-//管理員
-Route::group(['middleware' => 'admin'],function(){
-
-});
