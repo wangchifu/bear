@@ -7,6 +7,9 @@
             </div>
         </div>
         @auth
+            <?php
+            dd(session()) ;
+            ?>
         <div class="sidebar-header">
             <div class="user-pic">
                 <img class="img-responsive img-rounded" src="{{ asset('pro_sidebar_template/assets/img/user.jpg') }}" alt="User picture">

@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('folder_power');
+        //$this->middleware('folder_power');
     }
 
     /**
