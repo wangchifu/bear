@@ -21,13 +21,13 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 //顯示上傳的圖片
-Route::get('img/{path}', 'HomeController@getImg');
+Route::get('img/{path}', 'HomeController@getImg')->name('getImg');
 
 //下載上傳的檔案
-Route::get('file/{file}', 'HomeController@getFile');
+Route::get('file/{file}', 'HomeController@getFile')->name('getFile');
 
 //下載public的檔案
-Route::get('public_file/{file}', 'HomeController@getPublicFile');
+Route::get('public_file/{file}', 'HomeController@getPublicFile')->name('getPublicFile');
 
 
 //註冊會員
