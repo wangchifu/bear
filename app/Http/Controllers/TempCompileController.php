@@ -21,7 +21,7 @@ class TempCompileController extends Controller
             ->select('year')
             ->groupBy('year')
             ->get();
-
+        $year_data=[];
         foreach($years as $year){
             $year_data[$year->year]=$year->year;
         }
@@ -81,6 +81,8 @@ class TempCompileController extends Controller
             ->select('year')
             ->groupBy('year')
             ->get();
+
+        $year_data=[];
         foreach($years as $year){
             $year_data[$year->year]=$year->year;
         }
@@ -96,6 +98,8 @@ class TempCompileController extends Controller
             ->select('year')
             ->groupBy('year')
             ->get();
+
+        $year_data=[];
         foreach($years as $year){
             $year_data[$year->year]=$year->year;
         }
