@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Rap2hpoutre\FastExcel\FastExcel;
 use App\NewStudent;
 
@@ -60,5 +61,20 @@ class TempCompileController extends Controller
 
         return redirect()->route('temp_compile.index');
 
+    }
+
+    public function manage()
+    {
+        $years =  DB::table('new_students')
+            ->select('year')
+            ->groupBy('year')
+            ->get();
+        foreach($years as $year){
+            $year_data[]=$year->year;
+        }
+        $data = [
+            'year_data'=>$year_data,
+        ];
+        return view('temp_compiles.manage',$data);
     }
 }

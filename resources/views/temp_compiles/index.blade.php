@@ -8,10 +8,10 @@
             @include('layouts.module_nav')
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="">匯入新生</a>
+                    <a class="nav-link active" href="{{ route('temp_compile.index') }}">匯入新生</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">管理新生</a>
+                    <a class="nav-link" href="{{ route('temp_compile.manage') }}">管理新生</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">匯出編班檔</a>
