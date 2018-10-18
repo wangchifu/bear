@@ -30,9 +30,17 @@
                     <select class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
                         <option value="">請選擇學年度</option>
                         @foreach($year_data as $k=>$v)
-                            <option value="{{ url('temp_compile/'.$k.'/manage') }}">{{ $v }}</option>
+                            <?php $selected=($v==$select_year)?"selected":""; ?>
+                            <option value="{{ url('temp_compile/'.$k.'/manage') }}" {{ $selected }}>{{ $v }}</option>
                         @endforeach
                     </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12">
+            <div class="row">
+                <div class="col-12">
+                    <h4>新名名單</h4>
                 </div>
             </div>
         </div>

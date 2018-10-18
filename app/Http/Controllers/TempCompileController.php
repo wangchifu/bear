@@ -17,7 +17,19 @@ class TempCompileController extends Controller
 
     public function index()
     {
-        return view('temp_compiles.index');
+        $years =  DB::table('new_students')
+            ->select('year')
+            ->groupBy('year')
+            ->get();
+
+        foreach($years as $year){
+            $year_data[$year->year]=$year->year;
+        }
+
+        $data = [
+            'year_data'=>$year_data,
+        ];
+        return view('temp_compiles.index',$data);
     }
 
     public function csv_import(Request $request)
@@ -70,11 +82,29 @@ class TempCompileController extends Controller
             ->groupBy('year')
             ->get();
         foreach($years as $year){
-            $year_data[]=$year->year;
+            $year_data[$year->year]=$year->year;
         }
         $data = [
             'year_data'=>$year_data,
         ];
         return view('temp_compiles.manage',$data);
+    }
+
+    public function manage_select($select_year)
+    {
+        $years =  DB::table('new_students')
+            ->select('year')
+            ->groupBy('year')
+            ->get();
+        foreach($years as $year){
+            $year_data[$year->year]=$year->year;
+        }
+
+
+        $data=[
+            'select_year'=>$select_year,
+            'year_data'=>$year_data,
+        ];
+        return view('temp_compiles.manage_select',$data);
     }
 }

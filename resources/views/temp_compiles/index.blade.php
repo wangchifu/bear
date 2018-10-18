@@ -19,7 +19,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="">編班作業</a>
                 </li>
-
             </ul>
         </div>
     </div>
@@ -37,6 +36,14 @@
                         上傳
                     </button>
                     {{ Form::close() }}
+                    <div class="col-3">
+                        已上傳學年：
+                    </div>
+                    @foreach($year_data as $k=>$v)
+                        <div class="col-3">
+                            [ {{ $v }}學年 ]
+                        </div>
+                    @endforeach
                 </div>
                 <div class="col-6">
                     <h4>說明</h4>
