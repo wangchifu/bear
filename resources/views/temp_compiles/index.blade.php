@@ -28,12 +28,12 @@
             <div class="row">
                 <div class="col-6">
                     <h4>上傳新生CSV檔案</h4>
-                    {{ Form::open(['route'=>'temp_compile.csv_upload','method'=>'post']) }}
+                    {{ Form::open(['route'=>'temp_compile.csv_import','method'=>'post','files'=>true]) }}
                     <div class="form-group">
                         <label for="csv">選擇檔案</label>
-                        {{ Form::file('file', ['id'=>'csv','class' => 'form-control']) }}
+                        {{ Form::file('csv', ['id'=>'csv','class' => 'form-control']) }}
                     </div>
-                    <button class="btn btn-primary btn-sm">
+                    <button class="btn btn-primary btn-sm" type="submit" onclick="return confirm('確定？')">
                         上傳
                     </button>
                     {{ Form::close() }}

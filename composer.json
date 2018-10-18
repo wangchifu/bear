@@ -11,7 +11,8 @@
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.7",
-        "meditate/twid": "^0.1.0"
+        "meditate/twid": "^0.1.0",
+        "rap2hpoutre/fast-excel": "^0.10.1"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
