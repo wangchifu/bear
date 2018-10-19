@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Rap2hpoutre\FastExcel\FastExcel;
 use App\NewStudent;
 
@@ -99,11 +100,14 @@ class TempCompileController extends Controller
             ->orderBy('numbering')
             ->paginate(10);
 
+        $page = (Input::get('page'))?Input::get('page'):"1";
+
         $data=[
             'this_year_seme'=>$this_year_seme,
             'select_year'=>$select_year,
             'year_data'=>$year_data,
             'new_students'=>$new_students,
+            'page'=>$page,
         ];
         return view('temp_compiles.manage',$data);
     }
@@ -119,6 +123,7 @@ class TempCompileController extends Controller
     public function manage_create()
     {
         $this_year_seme = substr(get_date_semester(date('Y-m-d')),0,3);
+
 
         $data = [
             'this_year_seme'=>$this_year_seme,
@@ -173,5 +178,55 @@ class TempCompileController extends Controller
         $new_student->delete();
         $this_year_seme = substr(get_date_semester(date('Y-m-d')),0,3);
         return redirect()->route('temp_compile.manage',$this_year_seme);
+    }
+
+    public function change_study(Request $request,NewStudent $new_student)
+    {
+        $att['has_study']=$request->input('has_study');
+        $new_student->update($att);
+        $page = $request->input('page');
+        $select_year = $request->input('select_year');
+        return redirect('temp_compile/'.$select_year.'/manage/?page='.$page);
+    }
+
+    public function report($select_year)
+    {
+        $years =  DB::table('new_students')
+            ->select('year')
+            ->groupBy('year')
+            ->get();
+
+        $this_year_seme = substr(get_date_semester(date('Y-m-d')),0,3);
+
+        $year_data=[];
+        foreach($years as $year){
+            $year_data[$year->year]=$year->year;
+        }
+
+        $new_student0s = NewStudent::where('year',$select_year)
+            ->where('has_study','0')
+            ->orderBy('numbering')
+            ->get();
+
+        $new_student1s = NewStudent::where('year',$select_year)
+            ->where('has_study','1')
+            ->orderBy('numbering')
+            ->get();
+
+        $new_student2s = NewStudent::where('year',$select_year)
+            ->where('has_study','2')
+            ->orderBy('numbering')
+            ->get();
+
+
+        $data = [
+            'this_year_seme'=>$this_year_seme,
+            'new_student0s'=>$new_student0s,
+            'new_student1s'=>$new_student1s,
+            'new_student2s'=>$new_student2s,
+            'select_year'=>$select_year,
+            'year_data'=>$year_data,
+        ];
+        return view('temp_compiles.report',$data);
     }
 }

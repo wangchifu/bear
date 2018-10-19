@@ -14,7 +14,7 @@
                     <a class="nav-link active" href="{{ route('temp_compile.manage',$this_year_seme) }}">管理新生</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">統計資訊</a>
+                    <a class="nav-link" href="{{ route('temp_compile.report',$this_year_seme) }}">統計標註</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">匯出編班檔</a>
@@ -99,20 +99,24 @@
                                     {{ $new_student->numbering }}
                                 </td>
                                 <td rowspan="2">
+                                    {{ Form::open(['route'=>['temp_compile.change_study',$new_student->id],'method'=>'patch'])}}
                                     @if($new_student->has_study=="0")
-                                        <input type="radio" name="has_study" value="1" id="r1"> <label for="r1">一般班</label><br>
-                                        <input type="radio" name="has_study" value="2" id="r2"> <label for="r2">特教班</label><br>
-                                        <strong class="text-danger">不就讀</strong>
+                                        <input type="radio" name="has_study" value="1" id="r{{ $new_student->id }}-1" onChange="this.form.submit()"> <label for="r{{ $new_student->id }}-1">一般班</label><br>
+                                        <input type="radio" name="has_study" value="2" id="r{{ $new_student->id }}-2" onChange="this.form.submit()"> <label for="r{{ $new_student->id }}-2">特教班</label><br>
+                                        <label><strong class="text-danger"><i class="fas fa-check-circle"></i> 不就讀</strong></label>
                                         {{ $new_student->reason }}
                                     @elseif($new_student->has_study=="1")
-                                        <strong class="text-success">一般班</strong><br>
-                                        <input type="radio" name="has_study" value="2" id="r2"> <label for="r2">特教班</label><br>
-                                        <input type="radio" name="has_study" value="0" id="r3"> <label for="r3">不就讀</label>
+                                        <label><strong class="text-success"><i class="fas fa-check-circle"></i> 一般班</strong></label><br>
+                                        <input type="radio" name="has_study" value="2" id="r{{ $new_student->id }}-2" onChange="this.form.submit()"> <label for="r{{ $new_student->id }}-2">特教班</label><br>
+                                        <input type="radio" name="has_study" value="0" id="r{{ $new_student->id }}-3" onChange="this.form.submit()"> <label for="r{{ $new_student->id }}-3">不就讀</label>
                                     @elseif($new_student->has_study=="2")
-                                        <input type="radio" name="has_study" value="1" id="r1"> <label for="r1">一般班</label><br>
-                                        <strong class="text-info">特教班</strong><br>
-                                        <input type="radio" name="has_study" value="0" id="r3"> <label for="r3">不就讀</label>
+                                        <input type="radio" name="has_study" value="1" id="r{{ $new_student->id }}-1" onChange="this.form.submit()"> <label for="r{{ $new_student->id }}-1">一般班</label><br>
+                                        <label><strong class="text-info"><i class="fas fa-check-circle"></i> 特教班</strong></label><br>
+                                        <input type="radio" name="has_study" value="0" id="r{{ $new_student->id }}-3" onChange="this.form.submit()"> <label for="r{{ $new_student->id }}-3">不就讀</label>
                                     @endif
+                                    <input type="hidden" name="select_year" value="{{ $select_year }}">
+                                    <input type="hidden" name="page" value="{{ $page }}">
+                                    {{ Form::close() }}
                                 </td>
                                 <td>
                                     {{ $new_student->elementary_school }}

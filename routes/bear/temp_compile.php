@@ -13,3 +13,6 @@ Route::post('temp_compile/{new_student}/manage_update', 'TempCompileController@m
 
 Route::post('temp_compile/check_id', 'TempCompileController@check_id')->name('temp_compile.check_id');
 Route::get('temp_compile/{new_student}/manage_destroy', 'TempCompileController@manage_destroy')->name('temp_compile.manage_destroy');
+Route::patch('temp_compile/{new_student}/change_study', 'TempCompileController@change_study')->name('temp_compile.change_study');
+
+Route::get('temp_compile/{select_year}/report', 'TempCompileController@report')->name('temp_compile.report');
