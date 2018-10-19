@@ -40,9 +40,12 @@ if (! function_exists('get_sidebar')) {
 if (! function_exists('check_power')) {
     function check_power($type,$item){
         //系統管理員直接pass
-        if(auth()->user()->admin == 1){
-            return true;
+        if(auth()->check()){
+            if(auth()->user()->admin == 1){
+                return true;
+            }
         }
+
 
 
         if($type=='folder'){

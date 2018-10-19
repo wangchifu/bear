@@ -10,7 +10,8 @@
     <hr class="my-4">
     <h2 class="text-danger">錯誤說明：<strong>{{ $words }}</strong></h2>
     <p class="lead">
-      <a class="btn btn-secondary btn-lg" href="#" role="button" onclick="history.back()"><i class="fas fa-backward"></i> 返回上一頁</a>
+      <a class="btn btn-secondary btn-sm" href="#" role="button" onclick="history.back()"><i class="fas fa-backward"></i> 回上頁</a>
+        <a class="btn btn-primary btn-sm" href="{{ route('index') }}" role="button"><i class="fas fa-home"></i> 回首頁</a>
     </p>
   </div>
 </div>

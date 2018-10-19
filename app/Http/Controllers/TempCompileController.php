@@ -135,4 +135,43 @@ class TempCompileController extends Controller
 
         return redirect()->route('temp_compile.manage',$this_year_seme);
     }
+
+    public function manage_edit(NewStudent $new_student)
+    {
+        $this_year_seme = substr(get_date_semester(date('Y-m-d')),0,3);
+
+        $data = [
+            'this_year_seme'=>$this_year_seme,
+            'new_student'=>$new_student,
+        ];
+        return view('temp_compiles.manage_edit',$data);
+    }
+
+    public function manage_update(Request $request,NewStudent $new_student)
+    {
+        $att = $request->all();
+        $new_student->update($att);
+        $this_year_seme = substr(get_date_semester(date('Y-m-d')),0,3);
+        return redirect()->route('temp_compile.manage',$this_year_seme);
+    }
+
+    public function check_id(Request $request)
+    {
+        $check_user = NewStudent::where('person_id',$request->input('person_id'))
+            ->first();
+        if(empty($check_user)){
+            $result = 'success';
+        }else{
+            $result = 'failed';
+        }
+        echo json_encode($result);
+        return;
+    }
+
+    public function manage_destroy(NewStudent $new_student)
+    {
+        $new_student->delete();
+        $this_year_seme = substr(get_date_semester(date('Y-m-d')),0,3);
+        return redirect()->route('temp_compile.manage',$this_year_seme);
+    }
 }

@@ -100,12 +100,18 @@
                                 </td>
                                 <td rowspan="2">
                                     @if($new_student->has_study=="0")
+                                        <input type="radio" name="has_study" value="1" id="r1"> <label for="r1">就讀</label><br>
+                                        <input type="radio" name="has_study" value="2" id="r2"> <label for="r2">特教班</label><br>
                                         <strong class="text-danger">不就讀</strong>
                                         {{ $new_student->reason }}
                                     @elseif($new_student->has_study=="1")
-                                        <strong class="text-success">就讀</strong>
+                                        <strong class="text-success">就讀</strong><br>
+                                        <input type="radio" name="has_study" value="2" id="r2"> <label for="r2">特教班</label><br>
+                                        <input type="radio" name="has_study" value="0" id="r3"> <label for="r3">不就讀</label>
                                     @elseif($new_student->has_study=="2")
-                                        <strong class="text-info">特教班</strong>
+                                        <input type="radio" name="has_study" value="1" id="r1"> <label for="r1">就讀</label><br>
+                                        <strong class="text-info">特教班</strong><br>
+                                        <input type="radio" name="has_study" value="0" id="r3"> <label for="r3">不就讀</label>
                                     @endif
                                 </td>
                                 <td>
@@ -117,7 +123,7 @@
                                 <td>
                                     @if($new_student->sex==1)
                                         <img src="{{ asset('img/boy.png') }}"> <span class="text-primary">男</span>
-                                    @else
+                                    @elseif($new_student->sex==2)
                                         <img src="{{ asset('img/girl.png') }}"> <span class="text-danger">女</span>
                                     @endif
                                 </td>
@@ -132,7 +138,7 @@
                                     {{ $new_student->cell_number }}
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-primary btn-sm">編輯</a>
+                                    <a href="{{ route('temp_compile.manage_edit',$new_student->id) }}" class="btn btn-primary btn-sm">編輯</a>
                                 </td>
                             </tr>
                             <tr>
@@ -151,7 +157,7 @@
                                     {{ $new_student->mailing_address }}
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-danger btn-sm">刪除</a>
+                                    <a href="{{ route('temp_compile.manage_destroy',$new_student->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('確定刪除 {{ $new_student->name }}?')">刪除</a>
                                 </td>
                             </tr>
                         @endforeach
