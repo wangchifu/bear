@@ -11,7 +11,7 @@
                     <a class="nav-link active" href="{{ route('temp_compile.index') }}">匯入新生</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('temp_compile.manage') }}">管理新生</a>
+                    <a class="nav-link" href="{{ route('temp_compile.manage',$this_year_seme) }}">管理新生</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">匯出編班檔</a>
@@ -36,14 +36,13 @@
                         上傳
                     </button>
                     {{ Form::close() }}
-                    <div class="col-3">
-                        已上傳學年：
+                    <hr>
+                    已上傳學年：
+                    <div class="col-12">
+                        @foreach($year_data as $k=>$v)
+                        [ {{ $v }}學年 ]
+                        @endforeach
                     </div>
-                    @foreach($year_data as $k=>$v)
-                        <div class="col-3">
-                            [ {{ $v }}學年 ]
-                        </div>
-                    @endforeach
                 </div>
                 <div class="col-6">
                     <h4>說明</h4>

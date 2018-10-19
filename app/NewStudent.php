@@ -8,6 +8,8 @@ class NewStudent extends Model
 {
     protected $fillable = [
         'year',
+        'has_study',
+        'reason',
         'person_id',
         'name',
         'sex',

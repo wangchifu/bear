@@ -16,6 +16,8 @@ class CreateNewStudents extends Migration
         Schema::create('new_students', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('year');//入學年
+            $table->tinyInteger('has_study');//就讀狀態0不就讀，1就讀,2特教班
+            $table->string('reason')->nullable();//不就讀的原因
             $table->string('person_id')->unique()->nullable();//身分證
             $table->string('name');//姓名
             $table->tinyInteger('sex')->nullable();//性別

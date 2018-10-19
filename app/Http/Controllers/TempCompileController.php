@@ -21,13 +21,18 @@ class TempCompileController extends Controller
             ->select('year')
             ->groupBy('year')
             ->get();
-        $year_data=[];
+
+        $this_year_seme = substr(get_date_semester(date('Y-m-d')),0,3);
+
+
+            $year_data=[];
         foreach($years as $year){
             $year_data[$year->year]=$year->year;
         }
 
         $data = [
             'year_data'=>$year_data,
+            'this_year_seme'=>$this_year_seme,
         ];
         return view('temp_compiles.index',$data);
     }
@@ -49,6 +54,7 @@ class TempCompileController extends Controller
         foreach($collection as $v){
             $new_one = [
                 'year'=>$v['入學年'],
+                'has_study'=>'1',
                 'person_id'=>$v['身份證字號'],
                 'name'=>$v['姓名'],
                 'sex'=>$v['性別(男生:1，女生:2)'],
@@ -75,40 +81,30 @@ class TempCompileController extends Controller
 
     }
 
-    public function manage()
+    public function manage($select_year)
     {
         $years =  DB::table('new_students')
             ->select('year')
             ->groupBy('year')
             ->get();
 
-        $year_data=[];
-        foreach($years as $year){
-            $year_data[$year->year]=$year->year;
-        }
-        $data = [
-            'year_data'=>$year_data,
-        ];
-        return view('temp_compiles.manage',$data);
-    }
-
-    public function manage_select($select_year)
-    {
-        $years =  DB::table('new_students')
-            ->select('year')
-            ->groupBy('year')
-            ->get();
+        $this_year_seme = substr(get_date_semester(date('Y-m-d')),0,3);
 
         $year_data=[];
         foreach($years as $year){
             $year_data[$year->year]=$year->year;
         }
 
+        $new_students = NewStudent::where('year',$select_year)
+            ->orderBy('numbering')
+            ->paginate(10);
 
         $data=[
+            'this_year_seme'=>$this_year_seme,
             'select_year'=>$select_year,
             'year_data'=>$year_data,
+            'new_students'=>$new_students,
         ];
-        return view('temp_compiles.manage_select',$data);
+        return view('temp_compiles.manage',$data);
     }
 }
