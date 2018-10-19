@@ -41,6 +41,8 @@
             <div class="row">
                 <div class="col-12">
                     <h4>新名名單</h4>
+                    <a href="" class="btn btn-success btn-sm"><i class="fas fa-plus-circle"></i> 增加一位</a>
+                    <a href="{{ route('temp_compile.manage_all_destroy',$select_year) }}" class="btn btn-danger btn-sm" onclick="return confirm('確定刪除全部？')"><i class="fas fa-times-circle"></i> 全部刪除</a>
                     <table class="table table-striped table-bordered">
                         <thead class="bg-secondary">
                         <tr>
@@ -69,7 +71,7 @@
                                 電話
                             </th>
                             <th>
-                                全部刪除
+                                動作
                             </th>
                         </tr>
                         <tr>
@@ -84,7 +86,7 @@
                                 通訊住址
                             </th>
                             <th>
-                                增加一位
+
                             </th>
                         </tr>
                         <tbody>

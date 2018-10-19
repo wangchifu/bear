@@ -107,4 +107,12 @@ class TempCompileController extends Controller
         ];
         return view('temp_compiles.manage',$data);
     }
+
+    public function manage_all_destroy($select_year)
+    {
+        NewStudent::where('year',$select_year)
+            ->delete();
+
+        return redirect()->route('temp_compile.manage',$select_year);
+    }
 }
