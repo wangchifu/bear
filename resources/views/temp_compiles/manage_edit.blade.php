@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-12">
                     <h4>修改名單</h4>
-                    {{ Form::model($new_student,['route'=>['temp_compile.manage_update',$new_student->id],'method'=>'patch','id'=>'new_student']) }}
+                    {{ Form::model($new_student,['route'=>['temp_compile.manage_update',$new_student->id],'method'=>'post','id'=>'new_student']) }}
                     @include('temp_compiles.form')
                     <a href="#" onclick="history.back()" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i> 返回</a>
                     <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('確定修改？')">修改新生</button>

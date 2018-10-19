@@ -45,6 +45,8 @@ vim .env
 `DB_PASSWORD=secret  //資料庫使用者密碼`  
 `...`  
 `DEFAULT_USER_PWD=demo1234 //網站使用者預設密碼`  
+`INSTALL_FOLDER=/var/www/html/bear/  //系統安裝目錄，最後加/`  
+` IS_JHORES=0  //是否國中`
 
 - 設定下載目錄及暫存目錄權限為777  
 sudo chmod 777 -R storage bootstrap/cache

@@ -35,33 +35,6 @@
                     <a href="#" onclick="history.back()" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i> 返回</a>
                     <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('確定新增？')">新增新生</button>
                     {{ Form::close() }}
-                    <script>
-                        function check_id(){
-                            $.ajax({
-                                type: "POST",
-                                url: "{{ route('temp_compile.check_id') }}",
-                                dataType: 'json',
-                                data: $("#new_student").serialize(),
-
-                                error: function (result) {
-                                    alert("連接失敗");
-                                    $('#person_id').val('');
-                                    $('#person_id').focus();
-                                },
-                                success: function (result) {
-                                    if (result == 'success') {
-
-
-                                    } else {
-                                        alert("此身分證號已被使用");
-                                        $('#person_id').val('');
-                                        $('#person_id').focus();
-
-                                    }
-                                }
-                            });
-                        }
-                    </script>
                 </div>
             </div>
         </div>

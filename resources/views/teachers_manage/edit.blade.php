@@ -26,7 +26,7 @@
                                 @include('teachers_manage.teacher_menu')
                             </div>
                             <div class="col-9">
-                                {{ Form::open(['route'=>'teachers_manage.update','method'=>'patch','id'=>'add_teacher','files'=>true]) }}
+                                {{ Form::open(['route'=>'teachers_manage.update','method'=>'post','id'=>'add_teacher','files'=>true]) }}
                                 <table class="table table-striped">
                                     <tr>
                                         <td width="90">
@@ -84,7 +84,7 @@
                                             <label for="person_id">身分證號</label>
                                         </td>
                                         <td>
-                                            {{ Form::text('person_id',$this_user->teacher_base->person_id,['id'=>'person_id','class'=>'form-control','maxlength'=>'10']) }}
+                                            {{ Form::text('person_id',$this_user->teacher_base->person_id,['id'=>'person_id','class'=>'form-control','maxlength'=>'10','onchange'=>'check_id()']) }}
                                         </td>
                                         <td>
                                             <label for="sex">性別</label>
@@ -149,5 +149,32 @@
         </div>
     </div>
     {{ Form::close() }}
+    <script>
+        function check_id(){
+            $.ajax({
+                type: "POST",
+                url: "{{ route('teachers_manage.check_id') }}",
+                dataType: 'json',
+                data: $("#add_teacher").serialize(),
+
+                error: function (result) {
+                    alert("連接失敗");
+                    $('#person_id').val('');
+                    $('#person_id').focus();
+                },
+                success: function (result) {
+                    if (result == 'success') {
+
+
+                    } else {
+                        alert("此身分證號已被使用");
+                        $('#person_id').val('');
+                        $('#person_id').focus();
+
+                    }
+                }
+            });
+        }
+    </script>
 </div>
 @endsection

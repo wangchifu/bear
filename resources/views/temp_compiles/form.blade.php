@@ -58,3 +58,30 @@
         </td>
     </tr>
 </table>
+<script>
+    function check_id(){
+        $.ajax({
+            type: "POST",
+            url: "{{ route('temp_compile.check_id') }}",
+            dataType: 'json',
+            data: $("#new_student").serialize(),
+
+            error: function (result) {
+                alert("連接失敗");
+                $('#person_id').val('');
+                $('#person_id').focus();
+            },
+            success: function (result) {
+                if (result == 'success') {
+
+
+                } else {
+                    alert("此身分證號已被使用");
+                    $('#person_id').val('');
+                    $('#person_id').focus();
+
+                }
+            }
+        });
+    }
+</script>

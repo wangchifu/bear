@@ -100,16 +100,16 @@
                                 </td>
                                 <td rowspan="2">
                                     @if($new_student->has_study=="0")
-                                        <input type="radio" name="has_study" value="1" id="r1"> <label for="r1">就讀</label><br>
+                                        <input type="radio" name="has_study" value="1" id="r1"> <label for="r1">一般班</label><br>
                                         <input type="radio" name="has_study" value="2" id="r2"> <label for="r2">特教班</label><br>
                                         <strong class="text-danger">不就讀</strong>
                                         {{ $new_student->reason }}
                                     @elseif($new_student->has_study=="1")
-                                        <strong class="text-success">就讀</strong><br>
+                                        <strong class="text-success">一般班</strong><br>
                                         <input type="radio" name="has_study" value="2" id="r2"> <label for="r2">特教班</label><br>
                                         <input type="radio" name="has_study" value="0" id="r3"> <label for="r3">不就讀</label>
                                     @elseif($new_student->has_study=="2")
-                                        <input type="radio" name="has_study" value="1" id="r1"> <label for="r1">就讀</label><br>
+                                        <input type="radio" name="has_study" value="1" id="r1"> <label for="r1">一般班</label><br>
                                         <strong class="text-info">特教班</strong><br>
                                         <input type="radio" name="has_study" value="0" id="r3"> <label for="r3">不就讀</label>
                                     @endif
