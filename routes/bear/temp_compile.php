@@ -5,3 +5,6 @@ Route::post('temp_compile/csv_import', 'TempCompileController@csv_import')->name
 Route::get('temp_compile/manage', 'TempCompileController@manage')->name('temp_compile.manage');
 Route::get('temp_compile/{select_year}/manage', 'TempCompileController@manage')->name('temp_compile.manage');
 Route::get('temp_compile/{select_year}/manage_all_destroy', 'TempCompileController@manage_all_destroy')->name('temp_compile.manage_all_destroy');
+
+Route::get('temp_compile/manage_create', 'TempCompileController@manage_create')->name('temp_compile.manage_create');
+Route::post('temp_compile/manage_store', 'TempCompileController@manage_store')->name('temp_compile.manage_store');

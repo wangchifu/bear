@@ -14,12 +14,14 @@
                     <a class="nav-link active" href="{{ route('temp_compile.manage',$this_year_seme) }}">管理新生</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="">統計資訊</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="">匯出編班檔</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">編班作業</a>
                 </li>
-
             </ul>
         </div>
     </div>
@@ -40,8 +42,8 @@
         <div class="form-group col-12">
             <div class="row">
                 <div class="col-12">
-                    <h4>新名名單</h4>
-                    <a href="" class="btn btn-success btn-sm"><i class="fas fa-plus-circle"></i> 增加一位</a>
+                    <h4>新生名單</h4>
+                    <a href="{{ route('temp_compile.manage_create') }}" class="btn btn-success btn-sm"><i class="fas fa-plus-circle"></i> 增加一位</a>
                     <a href="{{ route('temp_compile.manage_all_destroy',$select_year) }}" class="btn btn-danger btn-sm" onclick="return confirm('確定刪除全部？')"><i class="fas fa-times-circle"></i> 全部刪除</a>
                     <table class="table table-striped table-bordered">
                         <thead class="bg-secondary">
@@ -89,13 +91,14 @@
 
                             </th>
                         </tr>
+                        </thead>
                         <tbody>
                         @foreach($new_students as $new_student)
                             <tr>
-                                <th rowspan="2">
+                                <td rowspan="2">
                                     {{ $new_student->numbering }}
-                                </th>
-                                <th rowspan="2">
+                                </td>
+                                <td rowspan="2">
                                     @if($new_student->has_study=="0")
                                         <strong class="text-danger">不就讀</strong>
                                         {{ $new_student->reason }}
@@ -104,48 +107,52 @@
                                     @elseif($new_student->has_study=="2")
                                         <strong class="text-info">特教班</strong>
                                     @endif
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     {{ $new_student->elementary_school }}
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     {{ $new_student->name }}
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     @if($new_student->sex==1)
                                         <img src="{{ asset('img/boy.png') }}"> <span class="text-primary">男</span>
                                     @else
                                         <img src="{{ asset('img/girl.png') }}"> <span class="text-danger">女</span>
                                     @endif
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     {{ $new_student->birthday }}
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     {{ $new_student->parent }}
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     {{ $new_student->city_call }}<br>
                                     {{ $new_student->cell_number }}
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <a href="" class="btn btn-primary btn-sm">編輯</a>
-                                </th>
+                                </td>
                             </tr>
                             <tr>
-                                <th>
+                                <td>
                                     {{ $new_student->elementary_class }}
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     {{ $new_student->person_id }}
-                                </th>
-                                <th colspan="4">
-                                    {{ $new_student->residence_address }}<br>
+                                </td>
+                                <td colspan="4">
+                                    {{ $new_student->residence_address }}
+                                    @if(!empty($new_student->residence_date))
+                                        ({{ $new_student->residence_date }})
+                                    @endif
+                                    <br>
                                     {{ $new_student->mailing_address }}
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <a href="" class="btn btn-danger btn-sm">刪除</a>
-                                </th>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

@@ -115,4 +115,24 @@ class TempCompileController extends Controller
 
         return redirect()->route('temp_compile.manage',$select_year);
     }
+
+    public function manage_create()
+    {
+        $this_year_seme = substr(get_date_semester(date('Y-m-d')),0,3);
+
+        $data = [
+            'this_year_seme'=>$this_year_seme,
+        ];
+        return view('temp_compiles.manage_create',$data);
+    }
+
+    public function manage_store(Request $request)
+    {
+        $att = $request->all();
+        $att['has_study'] = "1";
+        NewStudent::create($att);
+        $this_year_seme = substr(get_date_semester(date('Y-m-d')),0,3);
+
+        return redirect()->route('temp_compile.manage',$this_year_seme);
+    }
 }

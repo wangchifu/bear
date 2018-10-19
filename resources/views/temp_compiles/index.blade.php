@@ -14,6 +14,9 @@
                     <a class="nav-link" href="{{ route('temp_compile.manage',$this_year_seme) }}">管理新生</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="">統計資訊</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="">匯出編班檔</a>
                 </li>
                 <li class="nav-item">
