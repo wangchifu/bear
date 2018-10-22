@@ -17,7 +17,7 @@
                     <a class="nav-link active" href="{{ route('temp_compile.report',$this_year_seme) }}">統計標註</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">匯出編班檔</a>
+                    <a class="nav-link" href="{{ route('temp_compile.export',$this_year_seme) }}">匯出入編班檔</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">編班作業</a>
@@ -43,6 +43,7 @@
                 </div>
                 <div class="col-6">
                     <h4>就讀學生名單列表</h4>
+                    {{ Form::open(['route'=>'temp_compile.change_type','method'=>'patch']) }}
                     <table cellspacing='1' cellpadding='3' border="1">
                         <tr bgcolor='#cccccc'>
                             <th>
@@ -61,7 +62,7 @@
                                 特殊類別標註
                             </th>
                             <th>
-                                另名雙胞胎編號
+                                另名雙胞胎
                             </th>
                         </tr>
                         <?php $people=0;$boy=0;$girl=0; ?>
@@ -88,15 +89,21 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <select name="type">
-                                        <option value="1">一般生</option>
-                                        <option value="0">特教生</option>
-                                        <option value="2">雙胞胎同班</option>
-                                        <option value="3">雙胞胎不同班</option>
+                                    <?php
+                                    $selected0 = ($new_student->type ==0)?"selected":"";
+                                    $selected1 = ($new_student->type ==1)?"selected":"";
+                                    $selected2 = ($new_student->type ==2)?"selected":"";
+                                    $selected3 = ($new_student->type ==3)?"selected":"";
+                                    ?>
+                                    <select name="type[{{ $new_student->id }}]">
+                                        <option value="1" {{ $selected1 }}>一般生</option>
+                                        <option value="0" {{ $selected0 }}>特教生</option>
+                                        <option value="2" {{ $selected2 }}>雙胞胎同班</option>
+                                        <option value="3" {{ $selected3 }}>雙胞胎不同班</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" name="another" size="10" maxlength="5">
+                                    <input type="text" name="another[{{ $new_student->id }}]" size="5" maxlength="5" value="{{ $new_student->another }}">
                                 </td>
                             </tr>
                         @endforeach
@@ -113,56 +120,11 @@
                         </tr>
                     </table>
                     <br>
-                    <button type="submit" class="btn btn-primary btn-sm">儲存</button>
+                    <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('確定嗎？')">儲存</button>
+                    <input type="hidden" name="select_year" value="{{ $select_year }}">
+                    {{ Form::close() }}
                 </div>
                 <div class="col-6">
-                    <h4>未就讀學生名單列表</h4>
-                    <table cellspacing='1' cellpadding='3' border="1">
-                        <tr bgcolor='#cccccc'>
-                            <th>
-                                臨時編號
-                            </th>
-                            <th>
-                                姓名
-                            </th>
-                            <th>
-                                身分證字號
-                            </th>
-                            <th>
-                                性別
-                            </th>
-                            <th>
-                                原因
-                            </th>
-                        </tr>
-                        @foreach($new_student0s as $new_student)
-                        <tr bgcolor='#ffffff' onMouseOver=this.style.backgroundColor='#FFCE3C'
-                            onMouseOut=this.style.backgroundColor='#ffffff'>
-                            <td>
-                                {{ $new_student->numbering }}
-                            </td>
-                            <td>
-                                {{ $new_student->name }}
-                            </td>
-                            <td>
-                                {{ $new_student->person_id }}
-                            </td>
-                            <td>
-                                @if($new_student->sex==1)
-                                    <img src="{{ asset('img/boy.png') }}"> <span class="text-primary">男</span>
-                                @elseif($new_student->sex==2)
-                                    <img src="{{ asset('img/girl.png') }}"> <span class="text-danger">女</span>
-                                @endif
-                            </td>
-                            <td>
-                                <input type="text" name="reason" size="20">
-                            </td>
-                        </tr>
-                        @endforeach
-                    </table>
-                    <br>
-                    <button type="submit" class="btn btn-primary btn-sm">儲存</button>
-                    <hr>
                     <h4>特教班學生名單列表</h4>
                     <table cellspacing='1' cellpadding='3' border="1">
                         <tr bgcolor='#cccccc'>
@@ -201,6 +163,56 @@
                             </tr>
                         @endforeach
                     </table>
+                    <hr>
+                    <h4>未就讀學生名單列表</h4>
+                    {{ Form::open(['route'=>'temp_compile.key_reason','method'=>'patch']) }}
+                    <table cellspacing='1' cellpadding='3' border="1">
+                        <tr bgcolor='#cccccc'>
+                            <th>
+                                臨時編號
+                            </th>
+                            <th>
+                                姓名
+                            </th>
+                            <th>
+                                身分證字號
+                            </th>
+                            <th>
+                                性別
+                            </th>
+                            <th>
+                                原因
+                            </th>
+                        </tr>
+                        @foreach($new_student0s as $new_student)
+                            <tr bgcolor='#ffffff' onMouseOver=this.style.backgroundColor='#FFCE3C'
+                                onMouseOut=this.style.backgroundColor='#ffffff'>
+                                <td>
+                                    {{ $new_student->numbering }}
+                                </td>
+                                <td>
+                                    {{ $new_student->name }}
+                                </td>
+                                <td>
+                                    {{ $new_student->person_id }}
+                                </td>
+                                <td>
+                                    @if($new_student->sex==1)
+                                        <img src="{{ asset('img/boy.png') }}"> <span class="text-primary">男</span>
+                                    @elseif($new_student->sex==2)
+                                        <img src="{{ asset('img/girl.png') }}"> <span class="text-danger">女</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <input type="text" name="reason[{{ $new_student->id }}]" size="20" value="{{ $new_student->reason }}">
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('確定嗎？')">儲存</button>
+                    <input type="hidden" name="select_year" value="{{ $select_year }}">
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>

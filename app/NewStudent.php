@@ -26,5 +26,6 @@ class NewStudent extends Model
         'new_class',
         'new_num',
         'type',
+        'another',
     ];
 }

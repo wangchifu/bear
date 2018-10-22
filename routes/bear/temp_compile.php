@@ -16,3 +16,8 @@ Route::get('temp_compile/{new_student}/manage_destroy', 'TempCompileController@m
 Route::patch('temp_compile/{new_student}/change_study', 'TempCompileController@change_study')->name('temp_compile.change_study');
 
 Route::get('temp_compile/{select_year}/report', 'TempCompileController@report')->name('temp_compile.report');
+Route::patch('temp_compile/change_type', 'TempCompileController@change_type')->name('temp_compile.change_type');
+Route::patch('temp_compile/key_reason', 'TempCompileController@key_reason')->name('temp_compile.key_reason');
+
+Route::get('temp_compile/{select_year}/export', 'TempCompileController@export')->name('temp_compile.export');
+Route::post('temp_compile/{select_year}/csv_download', 'TempCompileController@csv_download')->name('temp_compile.csv_download');

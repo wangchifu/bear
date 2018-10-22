@@ -69,6 +69,7 @@ class TempCompileController extends Controller
                 'elementary_school'=>$v['國小校名(國小新生免填)'],
                 'elementary_class'=>$v['國小班級(國小新生免填)'],
                 'numbering'=>'A'.sprintf("%04s", $i),
+                'type'=>'1',
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
@@ -228,5 +229,82 @@ class TempCompileController extends Controller
             'year_data'=>$year_data,
         ];
         return view('temp_compiles.report',$data);
+    }
+
+    public function change_type(Request $request)
+    {
+        $type = $request->input('type');
+        $another = $request->input('another');
+        $select_year = $request->input('select_year');
+        foreach($type as $k=>$v){
+            $new_student = NewStudent::where('id',$k)->first();
+            $att['type'] = $v;
+            $att['another'] = $another[$k];
+            $new_student->update($att);
+        }
+
+        return redirect()->route('temp_compile.report',$select_year);
+    }
+
+    public function key_reason(Request $request)
+    {
+        $reason = $request->input('reason');
+        $select_year = $request->input('select_year');
+        foreach($reason as $k=>$v){
+            $new_student = NewStudent::where('id',$k)->first();
+            $att['reason'] = $v;
+            $new_student->update($att);
+        }
+
+        return redirect()->route('temp_compile.report',$select_year);
+    }
+
+    public function export($select_year)
+    {
+        $this_year_seme = substr(get_date_semester(date('Y-m-d')),0,3);
+
+        $years =  DB::table('new_students')
+            ->select('year')
+            ->groupBy('year')
+            ->get();
+        $year_data=[];
+        foreach($years as $year){
+            $year_data[$year->year]=$year->year;
+        }
+
+        $data = [
+            'select_year'=>$select_year,
+            'this_year_seme'=>$this_year_seme,
+            'year_data'=>$year_data,
+        ];
+        return view('temp_compiles.export',$data);
+    }
+
+    public function csv_download(Request $request,$this_year)
+    {
+        $school_setup = school_setup();
+        $class_num = $request->input('class_num');
+        $teachers = $request->input('teachers');
+        $new_students = NewStudent::where('year',$this_year)
+            ->where('has_study','1')
+            ->get();
+        $students_num = count($new_students);
+        $school_data = "校名,{$school_setup['name']},班級數,{$class_num},總人數,{$students_num}\r\n";
+        $school_data .= "{$teachers}\r\n";
+        $school_data .= "流水號,班級,座號,性別,姓名,身分証字號,原就讀學校,編班類別,相關流水號,備註\r\n";
+
+        foreach($new_students as $new_student){
+            $school_data .= "{$new_student->numbering},,,{$new_student->sex},{$new_student->name},{$new_student->person_id},{$new_student->elementary_school},{$new_student->type},{$new_student->another},\r\n";
+        }
+
+        $filename = $this_year."_".$school_setup['code']."_".date('Ymd').".csv";
+        header("Content-type: text/csv");
+        header("Content-Disposition: attachment; filename={$filename}");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+
+        echo $school_data;
+        die;
+
     }
 }
