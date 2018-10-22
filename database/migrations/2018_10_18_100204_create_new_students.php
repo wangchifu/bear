@@ -31,6 +31,7 @@ class CreateNewStudents extends Migration
             $table->string('elementary_school')->nullable();//國小校名
             $table->string('elementary_class')->nullable();//國小班級
             $table->string('numbering');//臨時編號
+            $table->string('student_sn')->nullable();//學號
             $table->tinyInteger('new_class')->nullable();//新班級
             $table->tinyInteger('new_num')->nullable();//新座號
             $table->tinyInteger('type')->nullable();//編班類別 :0為一般生,1為特教生,2為雙胞胎同班,3為雙胞胎不同班

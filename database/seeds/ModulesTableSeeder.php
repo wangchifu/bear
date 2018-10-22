@@ -111,6 +111,15 @@ class ModulesTableSeeder extends Seeder
         ]);
 
         \App\Module::create([
+            'name' => '學期初設定',
+            'english_name'=>'every_year_setup',
+            'type' => "module",
+            'module_id' => "2",
+            'order_by' =>'2',
+            'active'=>'checked',
+        ]);
+
+        \App\Module::create([
             'name' => '新生編班',
             'english_name'=>'temp_compile',
             'type' => "module",

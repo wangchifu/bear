@@ -46,12 +46,12 @@
                     <h4>匯出本年度編班檔</h4>
                     {{ Form::open(['route'=>['temp_compile.csv_download',$select_year],'method'=>'post']) }}
                     <div class="form-group">
-                        <label for>核定班級數</label>
-                        {{ Form::text('class_num',null,['class=form-control','required'=>'required']) }}
+                        <label for="class_num">核定班級數</label>
+                        {{ Form::text('class_num',null,['id'=>'class_num','class=form-control','required'=>'required']) }}
                     </div>
                     <div class="form-group">
-                        <label for>一年級各班導師</label>
-                        {{ Form::text('teachers',null,['class'=>'form-control']) }}
+                        <label for="teachers">一年級各班導師</label>
+                        {{ Form::text('teachers',null,['id'=>'teachers','class'=>'form-control']) }}
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm"><li class="fas fa-download"></li> 下載CSV檔</button>
                     {{ Form::close() }}
@@ -81,7 +81,7 @@
                         {{ Form::file('csv', ['id'=>'csv','class' => 'form-control']) }}
                     </div>
                     <button class="btn btn-primary btn-sm" type="submit" onclick="return confirm('確定？')">
-                        上傳
+                        <i class="fas fa-upload"></i> 上傳CSV檔
                     </button>
                 </div>
                 <div class="col-6">

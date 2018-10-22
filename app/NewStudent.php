@@ -23,6 +23,7 @@ class NewStudent extends Model
         'elementary_school',
         'elementary_class',
         'numbering',
+        'student_sn',
         'new_class',
         'new_num',
         'type',
