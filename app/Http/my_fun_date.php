@@ -62,3 +62,46 @@ if(! function_exists('get_month_date')){
         return $order_date;
     }
 }
+
+//現在是哪一個學期
+if(! function_exists('get_curr_seme')){
+    //秀某年某月的每一天
+    function get_curr_seme()
+    {
+        $school_day = \App\SchoolDay::where('active','1')->first();
+
+        if(!empty($school_day->id)){
+            $year = substr($school_day->year_seme,0,3);
+            $seme = substr($school_day->year_seme,3,1);
+
+            $this_seme['id'] = $school_day->year_seme;
+            $this_seme['name'] = "{$year}學年第{$seme}學期";
+            return $this_seme;
+        }
+
+        return null;
+    }
+}
+
+//學期的跳轉選單
+if(! function_exists('get_seme_menu')){
+    //秀某年某月的每一天
+    function get_seme_menu()
+    {
+        $seme_select = \App\SchoolDay::orderBy('id','DESC')->pluck('year_seme','year_seme')->toArray();
+
+        $this_seme = get_curr_seme();
+
+        $menu = "<select name=\"seme_year\" id=\"seme_year\"><option>請選擇學期</option>";
+        foreach($seme_select as $k=>$v){
+            $y = substr($k,0,3);
+            $s = substr($k,3,1);
+            $seme = "{$y}學年第{$s}學期";
+            $selected = ($seme==$this_seme['name'])?"selected":"";
+            $menu .="<option value=\"{$v}\" {$selected}>{$seme}</option>";
+        }
+        $menu .= "</select>";
+
+        return $menu;
+    }
+}

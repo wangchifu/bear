@@ -10,3 +10,5 @@ include ('my_fun_date.php');
 
 ///////////////////4.學校基本設定相關///////////////////////////////
 include ('my_fun_school.php');
+
+
