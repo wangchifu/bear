@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','管理新生')
+@section('title','統計標注')
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -20,7 +20,7 @@
                     <a class="nav-link" href="{{ route('temp_compile.export',$this_year_seme) }}">匯出入編班檔</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">編班作業</a>
+                    <a class="nav-link" href="{{ route('temp_compile.class',$this_year_seme) }}">編班作業</a>
                 </li>
             </ul>
         </div>
@@ -96,8 +96,8 @@
                                     $selected3 = ($new_student->type ==3)?"selected":"";
                                     ?>
                                     <select name="type[{{ $new_student->id }}]">
-                                        <option value="1" {{ $selected1 }}>一般生</option>
-                                        <option value="0" {{ $selected0 }}>特教生</option>
+                                        <option value="0" {{ $selected0 }}>一般生</option>
+                                        <option value="1" {{ $selected1 }}>特教生</option>
                                         <option value="2" {{ $selected2 }}>雙胞胎同班</option>
                                         <option value="3" {{ $selected3 }}>雙胞胎不同班</option>
                                     </select>

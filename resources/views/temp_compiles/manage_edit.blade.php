@@ -20,7 +20,7 @@
                     <a class="nav-link" href="{{ route('temp_compile.export',$this_year_seme) }}">匯出入編班檔</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">編班作業</a>
+                    <a class="nav-link" href="{{ route('temp_compile.class',$this_year_seme) }}">編班作業</a>
                 </li>
             </ul>
         </div>

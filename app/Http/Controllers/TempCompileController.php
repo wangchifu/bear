@@ -51,7 +51,6 @@ class TempCompileController extends Controller
                 ->import(storage_path('app/public/new_student/new_student.csv'));
         }
 
-        $i=1;
         foreach($collection as $v){
             $new_one = [
                 'year'=>$v['入學年'],
@@ -66,14 +65,13 @@ class TempCompileController extends Controller
                 'mailing_address'=>$v['通訊住址'],
                 'city_call'=>$v['市話'],
                 'cell_number'=>$v['手機號碼'],
-                'elementary_school'=>$v['國小校名(國小新生免填)'],
+                'elementary_school'=>$v['國小校名'],
                 'elementary_class'=>$v['國小班級(國小新生免填)'],
                 'numbering'=>'A'.sprintf("%04s", $i),
-                'type'=>'1',
+                'type'=>'0',//預設為一般生
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
-            $i++;
             $all[]=$new_one;
         }
 
@@ -306,5 +304,122 @@ class TempCompileController extends Controller
         echo $school_data;
         die;
 
+    }
+
+    public function new_student_import(Request $request)
+    {
+        if($request->hasFile('csv')) {
+            $file = $request->file('csv');
+
+            //先存下來才能open
+            $file->storeAs('public/new_student','new_student_OK.csv');
+
+            $open_file =fopen(storage_path('app/public/new_student/new_student_OK.csv'),'r');
+        }
+
+        while($row = __fgetcsv($open_file)){
+            $import_student[] = $row;
+        }
+        fclose($open_file);
+
+        $i=0;
+        foreach($import_student as $k=>$v){
+        //前三行不算
+            if($i>2){
+                $new_student = NewStudent::where('person_id',$v[5])
+                    ->where('numbering',$v[0])
+                    ->first();
+
+                $att = [
+                    'new_class'=>$v[1],
+                    'new_num'=>$v[2],
+                ];
+                $new_student->update($att);
+            }
+            $i++;
+        }
+
+
+
+        return redirect()->route('temp_compile.class',$request->input('select_year'));
+    }
+
+    public function class($select_year)
+    {
+        $this_year_seme = substr(get_date_semester(date('Y-m-d')),0,3);
+
+        $years =  DB::table('new_students')
+            ->select('year')
+            ->groupBy('year')
+            ->get();
+        $year_data=[];
+        foreach($years as $year){
+            $year_data[$year->year]=$year->year;
+        }
+
+
+        $new_students = NewStudent::where('year',$select_year)
+            ->where('has_study','1')//1就讀，2特教班
+            ->orderBy('new_class')
+            ->orderBy('new_num')
+            ->get();
+
+        $special_students = NewStudent::where('year',$select_year)
+            ->where('has_study','2')//1就讀，2特教班
+            ->get();
+
+        foreach($new_students as $new_student){
+            $student_data[$new_student->new_class][$new_student->new_num]['id'] = $new_student->id;
+            $student_data[$new_student->new_class][$new_student->new_num]['name'] = $new_student->name;
+            $student_data[$new_student->new_class][$new_student->new_num]['person_id'] = $new_student->person_id;
+            $student_data[$new_student->new_class][$new_student->new_num]['numbering'] = $new_student->numbering;
+            $student_data[$new_student->new_class][$new_student->new_num]['student_sn'] = $new_student->student_sn;
+            $student_data[$new_student->new_class][$new_student->new_num]['sex'] = $new_student->sex;
+        }
+
+        $data = [
+            'this_year_seme'=>$this_year_seme,
+            'select_year'=>$select_year,
+            'year_data'=>$year_data,
+            'student_data'=>$student_data,
+            'new_students'=>$new_students,
+            'special_students'=>$special_students,
+        ];
+        return view('temp_compiles.class',$data);
+    }
+
+    public function student_sn_set(Request $request)
+    {
+        $select_year = $request->input('select_year');
+        $new_students = NewStudent::where('year',$select_year)
+            ->where('has_study','1')//1就讀，2特教班
+            ->orderBy('new_class')
+            ->orderBy('new_num')
+            ->get();
+        $student_sn = (int)$select_year."001";
+        foreach($new_students as $new_student){
+            $att['student_sn'] = $student_sn;
+            $student_sn++;
+            $new_student->update($att);
+        }
+
+        return redirect()->route('temp_compile.class',$select_year);
+
+    }
+
+    public function student_sn_change(Request $request)
+    {
+        $new_class=$request->input('new_class');
+        $new_num=$request->input('new_num');
+        $student_sn=$request->input('student_sn');
+        foreach($new_class as $k=>$v){
+            $new_student = NewStudent::where('id',$k)->first();
+            $att['new_class'] = $new_class[$k];
+            $att['new_num'] = $new_num[$k];
+            $att['student_sn'] = $student_sn[$k];
+            $new_student->update($att);
+        }
+
+        return redirect()->route('temp_compile.class',$request->input('select_year'));
     }
 }

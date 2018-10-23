@@ -72,3 +72,44 @@ if(! function_exists('filesizekb')) {
         return number_format(filesize($file) / pow(1024, 1), 2, '.', '');
     }
 }
+
+//讀取csv檔
+if(! function_exists('__fgetcsv')){
+    /**
+     * fgetcsv
+     *
+     * 修正原生fgetcsv讀取中文函式
+     *
+     * @param CSV文件檔案
+     * @param length 每一行所讀取的最大資料長度
+     * @param d 資料分隔符號(預設為逗號)
+     * @param e 字串包含符號(預設為雙引號)
+     * @return $_csv_data
+     */
+    function __fgetcsv(&$handle, $length = null, $d = ",", $e = '"') {
+        $d = preg_quote($d);
+        $e = preg_quote($e);
+        $_line = "";
+        $eof=false;
+        while ($eof != true) {
+            $_line .= (empty ($length) ? fgets($handle) : fgets($handle, $length));
+            $itemcnt = preg_match_all('/' . $e . '/', $_line, $dummy);
+            if ($itemcnt % 2 == 0){
+                $eof = true;
+            }
+        }
+
+        $_csv_line = preg_replace('/(?: |[ ])?$/', $d, trim($_line));
+
+        $_csv_pattern = '/(' . $e . '[^' . $e . ']*(?:' . $e . $e . '[^' . $e . ']*)*' . $e . '|[^' . $d . ']*)' . $d . '/';
+        preg_match_all($_csv_pattern, $_csv_line, $_csv_matches);
+        $_csv_data = $_csv_matches[1];
+
+        for ($_csv_i = 0; $_csv_i < count($_csv_data); $_csv_i++) {
+            $_csv_data[$_csv_i] = preg_replace("/^" . $e . "(.*)" . $e . "$/s", "$1", $_csv_data[$_csv_i]);
+            $_csv_data[$_csv_i] = str_replace($e . $e, $e, $_csv_data[$_csv_i]);
+        }
+
+        return empty ($_line) ? false : $_csv_data;
+    }
+}

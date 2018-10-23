@@ -20,7 +20,7 @@
                     <a class="nav-link active" href="{{ route('temp_compile.export',$this_year_seme) }}">匯出入編班檔</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">編班作業</a>
+                    <a class="nav-link" href="{{ route('temp_compile.class',$this_year_seme) }}">編班作業</a>
                 </li>
             </ul>
         </div>
@@ -76,6 +76,7 @@
             <div class="row">
                 <div class="col-6">
                     <h4>上傳亂數編班完成CSV檔案</h4>
+                    {{ Form::open(['route'=>'temp_compile.new_student_import','method'=>'post','files'=>true]) }}
                     <div class="form-group">
                         <label for="csv">選擇檔案</label>
                         {{ Form::file('csv', ['id'=>'csv','class' => 'form-control']) }}
@@ -83,6 +84,8 @@
                     <button class="btn btn-primary btn-sm" type="submit" onclick="return confirm('確定？')">
                         <i class="fas fa-upload"></i> 上傳CSV檔
                     </button>
+                    <input type="hidden" name="select_year" value="{{ $select_year }}">
+                    {{ Form::close() }}
                 </div>
                 <div class="col-6">
                     <h4>上傳亂數編班完成檔說明</h4>

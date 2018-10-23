@@ -21,3 +21,11 @@ Route::patch('temp_compile/key_reason', 'TempCompileController@key_reason')->nam
 
 Route::get('temp_compile/{select_year}/export', 'TempCompileController@export')->name('temp_compile.export');
 Route::post('temp_compile/{select_year}/csv_download', 'TempCompileController@csv_download')->name('temp_compile.csv_download');
+
+Route::post('temp_compile/new_student_import', 'TempCompileController@new_student_import')->name('temp_compile.new_student_import');
+
+Route::get('temp_compile/{select_year}/class', 'TempCompileController@class')->name('temp_compile.class');
+
+Route::post('temp_compile/student_sn_set', 'TempCompileController@student_sn_set')->name('temp_compile.student_sn_set');
+
+Route::patch('temp_compile/student_sn_change', 'TempCompileController@student_sn_change')->name('temp_compile.student_sn_change');

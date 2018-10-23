@@ -20,7 +20,7 @@
                     <a class="nav-link" href="{{ route('temp_compile.export',$this_year_seme) }}">匯出入編班檔</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">編班作業</a>
+                    <a class="nav-link" href="{{ route('temp_compile.class',$this_year_seme) }}">編班作業</a>
                 </li>
             </ul>
         </div>
@@ -58,6 +58,9 @@
                         </li>
                         <li>
                             <strong class="text-danger">請使用 <a href="https://zh-tw.libreoffice.org/" target="_blank">LibreOffice</a> 開啟編輯它，文字編碼 UTF-8，切勿使用 MS Excel。</strong>
+                        </li>
+                        <li>
+                            CSV檔的標題列請勿更動。
                         </li>
                     </ul>
                 </div>
