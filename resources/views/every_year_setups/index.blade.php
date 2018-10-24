@@ -89,6 +89,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{ $school_days->links() }}
         </div>
     </div>
 </div>

@@ -1,6 +1,7 @@
 <?php
 $this_module = explode('/',$_SERVER['REQUEST_URI']);
-$folder = \App\Module::where('english_name',$this_module[1])->first();
+$module_name = explode('?',$this_module[1]);
+$folder = \App\Module::where('english_name',$module_name[0])->first();
 $father_folder_id = $folder->module_id;
 $path[$folder->id] = $folder->name;
 while($father_folder_id != "0"){

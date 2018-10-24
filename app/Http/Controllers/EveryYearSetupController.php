@@ -4,13 +4,21 @@ namespace App\Http\Controllers;
 
 use App\SchoolClass;
 use App\SchoolDay;
+use App\SemeCourseDate;
 use Illuminate\Http\Request;
 
 class EveryYearSetupController extends Controller
 {
+    public function __construct()
+    {
+        //檢查權限
+        $this->middleware('module_power');
+    }
+
     public function index()
     {
-        $school_days = SchoolDay::orderBy('year_seme','DESC')->get();
+        $school_days = SchoolDay::orderBy('year_seme','DESC')
+        ->paginate(1);
         $data = [
             'school_days'=>$school_days,
         ];
@@ -211,5 +219,67 @@ class EveryYearSetupController extends Controller
         }
 
         return redirect()->route('every_year_setup.class_setup');
+    }
+
+    //上課日設定
+    public function school_day(Request $request)
+    {
+        $curr_seme = get_curr_seme();
+        $this_seme = ($request->input('this_seme'))?$request->input('this_seme'):$curr_seme['id'];
+        $seme_course_dates = SemeCourseDate::where('year_seme',$this_seme)
+            ->get();
+        $grade_day = [
+            '1'=>'',
+            '2'=>'',
+            '3'=>'',
+            '4'=>'',
+            '5'=>'',
+            '6'=>'',
+        ];
+        foreach($seme_course_dates as $seme_course_date){
+            $grade_day[$seme_course_date->class_year] = $seme_course_date->days;
+        }
+
+        $data = [
+            'this_seme'=>$this_seme,
+            'grade_day'=>$grade_day,
+        ];
+        return view('every_year_setups.school_day',$data);
+    }
+
+    public function school_day_edit($year_seme,$grade)
+    {
+        $seme_course_date = SemeCourseDate::where('year_seme',$year_seme)
+            ->where('class_year',$grade)
+            ->first();
+        if(empty($seme_course_date->id)){
+            $action = "create";
+
+        }else{
+            $action = "edit";
+
+        }
+
+        $data = [
+            'year_seme'=>$year_seme,
+            'grade'=>$grade,
+            'action'=>$action,
+            'seme_course_date'=>$seme_course_date,
+        ];
+        return view('every_year_setups.school_day_edit',$data);
+    }
+
+    public function school_day_store(Request $request)
+    {
+        $att = $request->all();
+        SemeCourseDate::create($att);
+        return redirect()->route('every_year_setup.school_day');
+    }
+
+    public function school_day_update(Request $request,SemeCourseDate $seme_course_date)
+    {
+        $att = $request->all();
+        $seme_course_date->update($att);
+        return redirect()->route('every_year_setup.school_day');
     }
 }
