@@ -17,3 +17,5 @@ if (! function_exists('school_setup')) {
         return $school_setup;
     }
 }
+
+//回傳學期中文班名

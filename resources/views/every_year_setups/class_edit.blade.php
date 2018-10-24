@@ -33,16 +33,13 @@
     </div>
     <div class="row">
         <div class="form-group col-12">
-            <h4>班級設定</h4>
-            <form action="index.php">
-            {!! get_seme_menu() !!} <button type="submit">切換學期</button>
-            </form>
+            <h4>{{ substr($year_seme,0,3) }}學年第{{ substr($year_seme,3,1) }}學期 班級設定</h4>
             @if($action=="create")
-            {{ Form::open(['route'=>'every_year_setup.class_store','method'=>'post']) }}
+                {{ Form::open(['route'=>'every_year_setup.class_store','method'=>'post']) }}
             @elseif($action=="edit")
-
+                {{ Form::open(['route'=>'every_year_setup.class_update','method'=>'post']) }}
             @endif
-            <table cellspacing='1' cellpadding='3' border="1">
+            <table class="table table-striped">
                 <thead>
                 <tr bgcolor="#cccccc">
                     <th>
@@ -57,68 +54,88 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr>
+                    <td>
+                        一年級
+                    </td>
+                    <td>
+                        共 <input type="text" name="grade[1]" value="{{ $grade[1] }}" size="2" maxlength="2" required> 班
+                    </td>
+                    <td>
+                        <?php
+                        $selected1 = ($class_type[1]==1)?"selected":"";
+                        $selected2 = ($class_type[1]==2)?"selected":"";
+                        $selected3 = ($class_type[1]==3)?"selected":"";
+                        ?>
+                        <select name="class_type[1]" required>
+                            <option></option>
+                            <option value="1" {{ $selected1 }}>一、二、三</option>
+                            <option value="2" {{ $selected2 }}>甲、乙、丙</option>
+                            <option value="3" {{ $selected3 }}>忠、孝、仁</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        二年級
+                    </td>
+                    <td>
+                        共 <input type="text" name="grade[2]" value="{{ $grade[2] }}" size="2" maxlength="2" required> 班
+                    </td>
+                    <td>
+                        <?php
+                        $selected1 = ($class_type[2]==1)?"selected":"";
+                        $selected2 = ($class_type[2]==2)?"selected":"";
+                        $selected3 = ($class_type[2]==3)?"selected":"";
+                        ?>
+                        <select name="class_type[2]" required>
+                            <option></option>
+                            <option value="1" {{ $selected1 }}>一、二、三</option>
+                            <option value="2" {{ $selected2 }}>甲、乙、丙</option>
+                            <option value="3" {{ $selected3 }}>忠、孝、仁</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        三年級
+                    </td>
+                    <td>
+                        共 <input type="text" name="grade[3]" value="{{ $grade[3] }}" size="2" maxlength="2" required> 班
+                    </td>
+                    <td>
+                        <?php
+                        $selected1 = ($class_type[3]==1)?"selected":"";
+                        $selected2 = ($class_type[3]==2)?"selected":"";
+                        $selected3 = ($class_type[3]==3)?"selected":"";
+                        ?>
+                        <select name="class_type[3]" required>
+                            <option></option>
+                            <option value="1" {{ $selected1 }}>一、二、三</option>
+                            <option value="2" {{ $selected2 }}>甲、乙、丙</option>
+                            <option value="3" {{ $selected3 }}>忠、孝、仁</option>
+                        </select>
+                    </td>
+                </tr>
                 @if(env('IS_JHORES')==0)
-                <tr>
-                    <td>
-                        國小一年級
-                    </td>
-                    <td>
-                        共 <input type="text" name="grade1" size="2" maxlength="2" required> 班
-                    </td>
-                    <td>
-                        <select name="class_type" required>
-                            <option></option>
-                            <option value="1">一、二、三</option>
-                            <option value="2">甲、乙、丙</option>
-                            <option value="3">忠、孝、仁</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        國小二年級
-                    </td>
-                    <td>
-                        共 <input type="text" name="grade2" size="2" maxlength="2"> 班
-                    </td>
-                    <td>
-                        <select name="class_type" required>
-                            <option></option>
-                            <option value="1">一、二、三</option>
-                            <option value="2">甲、乙、丙</option>
-                            <option value="3">忠、孝、仁</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        國小三年級
-                    </td>
-                    <td>
-                        共 <input type="text" name="grade3" size="2" maxlength="2"> 班
-                    </td>
-                    <td>
-                        <select name="class_type" required>
-                            <option></option>
-                            <option value="1">一、二、三</option>
-                            <option value="2">甲、乙、丙</option>
-                            <option value="3">忠、孝、仁</option>
-                        </select>
-                    </td>
-                </tr>
                 <tr>
                     <td>
                         國小四年級
                     </td>
                     <td>
-                        共 <input type="text" name="grade4" size="2" maxlength="2"> 班
+                        共 <input type="text" name="grade[4]" value="{{ $grade[4] }}" size="2" maxlength="2" required> 班
                     </td>
                     <td>
-                        <select name="class_type" required>
+                        <?php
+                        $selected1 = ($class_type[4]==1)?"selected":"";
+                        $selected2 = ($class_type[4]==2)?"selected":"";
+                        $selected3 = ($class_type[4]==3)?"selected":"";
+                        ?>
+                        <select name="class_type[4]" required>
                             <option></option>
-                            <option value="1">一、二、三</option>
-                            <option value="2">甲、乙、丙</option>
-                            <option value="3">忠、孝、仁</option>
+                            <option value="1" {{ $selected1 }}>一、二、三</option>
+                            <option value="2" {{ $selected2 }}>甲、乙、丙</option>
+                            <option value="3" {{ $selected3 }}>忠、孝、仁</option>
                         </select>
                     </td>
                 </tr>
@@ -127,14 +144,19 @@
                         國小五年級
                     </td>
                     <td>
-                        共 <input type="text" name="grade5" size="2" maxlength="2"> 班
+                        共 <input type="text" name="grade[5]" value="{{ $grade[5] }}" size="2" maxlength="2" required> 班
                     </td>
                     <td>
-                        <select name="class_type" required>
+                        <?php
+                        $selected1 = ($class_type[5]==1)?"selected":"";
+                        $selected2 = ($class_type[5]==2)?"selected":"";
+                        $selected3 = ($class_type[5]==3)?"selected":"";
+                        ?>
+                        <select name="class_type[5]" required>
                             <option></option>
-                            <option value="1">一、二、三</option>
-                            <option value="2">甲、乙、丙</option>
-                            <option value="3">忠、孝、仁</option>
+                            <option value="1" {{ $selected1 }}>一、二、三</option>
+                            <option value="2" {{ $selected2 }}>甲、乙、丙</option>
+                            <option value="3" {{ $selected3 }}>忠、孝、仁</option>
                         </select>
                     </td>
                 </tr>
@@ -143,69 +165,40 @@
                         國小六年級
                     </td>
                     <td>
-                        共 <input type="text" name="grade6" size="2" maxlength="2"> 班
+                        共 <input type="text" name="grade[6]" value="{{ $grade[6] }}" size="2" maxlength="2" required> 班
                     </td>
                     <td>
-                        <select name="class_type" required>
+                        <?php
+                        $selected1 = ($class_type[6]==1)?"selected":"";
+                        $selected2 = ($class_type[6]==2)?"selected":"";
+                        $selected3 = ($class_type[6]==3)?"selected":"";
+                        ?>
+                        <select name="class_type[6]" required>
                             <option></option>
-                            <option value="1">一、二、三</option>
-                            <option value="2">甲、乙、丙</option>
-                            <option value="3">忠、孝、仁</option>
+                            <option value="1" {{ $selected1 }}>一、二、三</option>
+                            <option value="2" {{ $selected2 }}>甲、乙、丙</option>
+                            <option value="3" {{ $selected3 }}>忠、孝、仁</option>
                         </select>
                     </td>
                 </tr>
-                @elseif(env('IS_JHORES')==1)
-                    <tr>
-                        <td>
-                            國中一年級
-                        </td>
-                        <td>
-                            共 <input type="text" name="grade1" size="2" maxlength="2"> 班
-                        </td>
-                        <td>
-                            <select name="class_type" required>
-                                <option></option>
-                                <option value="1">一、二、三</option>
-                                <option value="2">甲、乙、丙</option>
-                                <option value="3">忠、孝、仁</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            國中二年級
-                        </td>
-                        <td>
-                            共 <input type="text" name="grade2" size="2" maxlength="2"> 班
-                        </td>
-                        <td>
-                            <select name="class_type" required>
-                                <option></option>
-                                <option value="1">一、二、三</option>
-                                <option value="2">甲、乙、丙</option>
-                                <option value="3">忠、孝、仁</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            國中三年級
-                        </td>
-                        <td>
-                            共 <input type="text" name="grade3" size="2" maxlength="2"> 班
-                        </td>
-                        <td>
-                            <select name="class_type" required>
-                                <option></option>
-                                <option value="1">一、二、三</option>
-                                <option value="2">甲、乙、丙</option>
-                                <option value="3">忠、孝、仁</option>
-                            </select>
-                        </td>
-                    </tr>
                 @endif
+                <tr>
+                    <td>
+                        <strong class="text-danger">特教班</strong>
+                    </td>
+                    <td>
+                        共 <input type="text" name="special" value="{{ $special }}" size="2" maxlength="2" required> 班
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
                 </tbody>
             </table>
+            <br>
+            <input type="hidden" name="year_seme" value="{{ $year_seme }}">
+            <a href="{{ route('every_year_setup.class_setup') }}" class="btn btn-secondary btn-sm">返回</a>
+            <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('確定？')">儲存</button>
             {{ Form::close() }}
         </div>
     </div>

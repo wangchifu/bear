@@ -36,27 +36,30 @@
             <h4>學期設定</h4>
             <a href="{{ route('every_year_setup.day_create') }}" class="btn btn-success btn-sm">新增學期設定</a>
             <br><br>
-            <table cellspacing='1' cellpadding='3' border="1">
+            <table class="table table-striped">
+                <thead>
                 <tr bgcolor="#cccccc">
-                    <td>
+                    <th>
                         學期
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         學期開始日
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         學期結束日
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         開學日
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         結業日
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         動作
-                    </td>
+                    </th>
                 </tr>
+                </thead>
+                <tbody>
                 @foreach($school_days as $school_day)
                     <tr>
                         <td>
@@ -84,6 +87,7 @@
                         </td>
                     </tr>
                 @endforeach
+                </tbody>
             </table>
         </div>
     </div>

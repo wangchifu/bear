@@ -87,6 +87,7 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuMessage">
                 <a class="dropdown-item" href="">今天日期：{{ date('Y-m-d') }}</a>
                 <a class="dropdown-item" href="">現在時刻：{{ date('H:i') }}</a>
+                <a class="dropdown-item" href="">結休業式：{{ $this_seme['stop_date'] }}</a>
             </div>
         </div>
     </div>

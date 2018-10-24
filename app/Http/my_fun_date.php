@@ -69,13 +69,15 @@ if(! function_exists('get_curr_seme')){
     function get_curr_seme()
     {
         $school_day = \App\SchoolDay::where('active','1')->first();
-
+        $this_seme = ['id'=>'','name'=>'','start_date'=>'','stop_date'=>''];
         if(!empty($school_day->id)){
             $year = substr($school_day->year_seme,0,3);
             $seme = substr($school_day->year_seme,3,1);
 
             $this_seme['id'] = $school_day->year_seme;
             $this_seme['name'] = "{$year}學年第{$seme}學期";
+            $this_seme['start_date'] = $school_day->start_date;
+            $this_seme['stop_date'] = $school_day->stop_date;
             return $this_seme;
         }
 
@@ -86,18 +88,16 @@ if(! function_exists('get_curr_seme')){
 //學期的跳轉選單
 if(! function_exists('get_seme_menu')){
     //秀某年某月的每一天
-    function get_seme_menu()
+    function get_seme_menu($this_seme)
     {
         $seme_select = \App\SchoolDay::orderBy('id','DESC')->pluck('year_seme','year_seme')->toArray();
 
-        $this_seme = get_curr_seme();
-
-        $menu = "<select name=\"seme_year\" id=\"seme_year\"><option>請選擇學期</option>";
+        $menu = "<select name=\"this_seme\" id=\"seme_year\"><option>請選擇學期</option>";
         foreach($seme_select as $k=>$v){
             $y = substr($k,0,3);
             $s = substr($k,3,1);
             $seme = "{$y}學年第{$s}學期";
-            $selected = ($seme==$this_seme['name'])?"selected":"";
+            $selected = ($k==$this_seme)?"selected":"";
             $menu .="<option value=\"{$v}\" {$selected}>{$seme}</option>";
         }
         $menu .= "</select>";

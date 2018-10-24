@@ -36,6 +36,7 @@
             <h4>新增學期設定</h4>
             {{ Form::open(['route'=>'every_year_setup.day_store','method'=>'post']) }}
             @include('every_year_setups.day_form')
+            <a href="{{ route('every_year_setup.index') }}" class="btn btn-secondary btn-sm">返回</a>
             <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('確定？')">新增</button>
             {{ Form::close() }}
         </div>

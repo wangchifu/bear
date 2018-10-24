@@ -34,11 +34,54 @@
     <div class="row">
         <div class="form-group col-12">
             <h4>班級設定</h4>
-            <form action="index.php">
-            {!! get_seme_menu() !!} <button type="submit">切換學期</button>
-            </form>
+            {{ Form::open(['route'=>'every_year_setup.class_setup','method'=>'post']) }}
+            {!! get_seme_menu($this_seme) !!} <button type="submit">切換學期</button>
+            {{ Form::close() }}
             <br>
-            <a href="{{ route('every_year_setup.class_edit',$this_seme['id']) }}" class="btn btn-success btn-sm">設定本學期</a>
+            <a href="{{ route('every_year_setup.class_edit',$this_seme) }}" class="btn btn-success btn-sm">設定本學期</a>
+            <br>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr bgcolor="#cccccc">
+                    <th>
+                        學校年級
+                    </th>
+                    <th>
+                        班級數
+                    </th>
+                    <th>
+                        名稱種類
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($grade as $k=>$v)
+                    <tr>
+                        <td>
+                            {{ cht_number($k) }}年級
+                        </td>
+                        <td>
+                            {{ $v['num'] }}
+                        </td>
+                        <td>
+                            {{ $v['class_type'] }}
+                        </td>
+                    </tr>
+                @endforeach
+                @if($special['num'])
+                <tr>
+                    <td>
+                        <strong class="text-danger">特教班</strong>
+                    </td>
+                    <td>
+                        {{ $special['num'] }}
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                @endif
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
