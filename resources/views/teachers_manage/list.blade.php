@@ -26,8 +26,8 @@
                             <?php $last_title=""; ?>
                             <div class="row">
                                 @foreach($user_data as $v)
-                                    @if($last_title != $v['title_kind'])
-                                        @if($v['title_kind'] != "校長")
+                                    @if($last_title != $v['school_title'])
+                                        @if($v['school_title'] != "校長")
                                             </div><hr><div class="row">
                                         @endif
                                         <h4 class="col-12 text-success">職別：{{ $v['title_kind'] }}</h4>
@@ -47,7 +47,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <?php $last_title=$v['title_kind']; ?>
+                                    <?php $last_title=$v['school_title']; ?>
                                 @endforeach
                             </div>
 

@@ -26,14 +26,16 @@ class TeachersManageController extends Controller
         $user_data=[];
         foreach($users as $user){
             $order_by = $user->teacher_base->school_title->order_by;
-            $user_data[$order_by]['name'] = $user->teacher_base->school_title->name."--".$user->name;
-            $user_data[$order_by]['id'] = $user->id;
+            $user_data[$order_by][$user->id]['name'] = $user->teacher_base->school_title->name."--".$user->name;
+            $user_data[$order_by][$user->id]['id'] = $user->id;
         }
         ksort($user_data);
 
         $user_select=[];
-        foreach($user_data as $k=>$v){
-            $user_select[$v['id']] = $v['name'];
+        foreach($user_data as $k1=>$v1){
+            foreach($v1 as $k2=>$v2){
+                $user_select[$v2['id']] = $v2['name'];
+            }
         }
 
         //在職狀濡
@@ -63,14 +65,16 @@ class TeachersManageController extends Controller
         $user_data=[];
         foreach($users as $user){
             $order_by = $user->teacher_base->school_title->order_by;
-            $user_data[$order_by]['name'] = $user->teacher_base->school_title->name."--".$user->name;
-            $user_data[$order_by]['id'] = $user->id;
+            $user_data[$order_by][$user->id]['name'] = $user->teacher_base->school_title->name."--".$user->name;
+            $user_data[$order_by][$user->id]['id'] = $user->id;
         }
         ksort($user_data);
 
         $user_select=[];
-        foreach($user_data as $k=>$v){
-            $user_select[$v['id']] = $v['name'];
+        foreach($user_data as $k1=>$v1){
+            foreach($v1 as $k2=>$v2){
+                $user_select[$v2['id']] = $v2['name'];
+            }
         }
 
 
@@ -182,14 +186,16 @@ class TeachersManageController extends Controller
         $user_data=[];
         foreach($users as $user){
             $order_by = $user->teacher_base->school_title->order_by;
-            $user_data[$order_by]['name'] = $user->teacher_base->school_title->name."--".$user->name;
-            $user_data[$order_by]['id'] = $user->id;
+            $user_data[$order_by][$user->id]['name'] = $user->teacher_base->school_title->name."--".$user->name;
+            $user_data[$order_by][$user->id]['id'] = $user->id;
         }
         ksort($user_data);
 
         $user_select=[];
-        foreach($user_data as $k=>$v){
-            $user_select[$v['id']] = $v['name'];
+        foreach($user_data as $k1=>$v1){
+            foreach($v1 as $k2=>$v2){
+                $user_select[$v2['id']] = $v2['name'];
+            }
         }
 
 
@@ -263,20 +269,32 @@ class TeachersManageController extends Controller
     {
         $users = User::where('condition','0')
             ->get();
-        $user_data=[];
+        $user_data1=[];
         //職稱類別選項
         $title_kind_select = config('app.title_kind');
 
         foreach($users as $user){
             $order_by = $user->teacher_base->school_title->order_by;
-            $user_data[$order_by]['username'] = $user->username;
-            $user_data[$order_by]['name'] = $user->name;
-            $user_data[$order_by]['id'] = $user->id;
-            $user_data[$order_by]['title_kind'] = $title_kind_select[$user->teacher_base->title_kind_id];
-            $user_data[$order_by]['school_title'] = $user->teacher_base->school_title->name;
-            $user_data[$order_by]['photo'] = $user->teacher_base->photo;
+            $user_data1[$order_by][$user->id]['username'] = $user->username;
+            $user_data1[$order_by][$user->id]['name'] = $user->name;
+            $user_data1[$order_by][$user->id]['id'] = $user->id;
+            $user_data1[$order_by][$user->id]['title_kind'] = $title_kind_select[$user->teacher_base->title_kind_id];
+            $user_data1[$order_by][$user->id]['school_title'] = $user->teacher_base->school_title->name;
+            $user_data1[$order_by][$user->id]['photo'] = $user->teacher_base->photo;
         }
-        ksort($user_data);
+        ksort($user_data1);
+
+
+        foreach($user_data1 as $k1=>$v1){
+            foreach($v1 as $k2 => $v2){
+                $user_data[$k2]['username'] = $v2['username'];
+                $user_data[$k2]['name'] = $v2['name'];
+                $user_data[$k2]['id'] = $v2['id'];
+                $user_data[$k2]['title_kind'] = $v2['title_kind'];
+                $user_data[$k2]['school_title'] = $v2['school_title'];
+                $user_data[$k2]['photo'] = $v2['photo'];
+            }
+        }
 
         $data = [
             'user_data'=>$user_data,

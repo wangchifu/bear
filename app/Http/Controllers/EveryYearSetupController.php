@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\SchoolClass;
 use App\SchoolDay;
+use App\ScoreSetup;
 use App\SemeCourseDate;
 use Illuminate\Http\Request;
 
@@ -281,5 +282,101 @@ class EveryYearSetupController extends Controller
         $att = $request->all();
         $seme_course_date->update($att);
         return redirect()->route('every_year_setup.school_day');
+    }
+
+    public function score_setup(Request $request)
+    {
+        $curr_seme = get_curr_seme();
+        $this_seme = ($request->input('this_seme'))?$request->input('this_seme'):$curr_seme['id'];
+
+        $score_setups = ScoreSetup::where('year_seme',$this_seme)
+            ->orderBy('class_year')
+            ->get();
+
+        for($i=1;$i<7;$i++){
+            $score[$i]['times'] = "";
+            $score[$i]['nor_sec'] = "";
+        }
+
+        foreach($score_setups as $score_setup){
+            $ratio = explode('+',$score_setup->test_ratio);
+            $score[$score_setup->class_year]['times'] = $score_setup->performance_test_times;
+            $score[$score_setup->class_year]['nor_sec'] = $ratio[0]."% + ".$ratio[1]."%";
+            $score[$score_setup->class_year]['sec'] = $ratio[1];
+        }
+
+        $data = [
+            'this_seme'=>$this_seme,
+            'score'=>$score,
+        ];
+        return view('every_year_setups.score_setup',$data);
+    }
+
+    public function score_edit($year_seme,$grade)
+    {
+        $score_setup = ScoreSetup::where('year_seme',$year_seme)
+            ->where('class_year',$grade)
+            ->first();
+        if(empty($score_setup->id)){
+            $action = "create";
+            $times="";
+            $nor = "";
+            $sec = "";
+
+        }else{
+            $action = "edit";
+            $ratio = explode('+',$score_setup->test_ratio);
+            $times=$score_setup->performance_test_times;
+            $nor = $ratio[0];
+            $sec = $ratio[1];
+
+        }
+
+        $data = [
+            'year_seme'=>$year_seme,
+            'grade'=>$grade,
+            'action'=>$action,
+            'times'=>$times,
+            'nor'=>$nor,
+            'sec'=>$sec,
+        ];
+        return view('every_year_setups.score_edit',$data);
+    }
+
+    public function score_save(Request $request)
+    {
+        $year_seme = $request->input('year_seme');
+        $grade = $request->input('grade');
+        $times = $request->input('times');
+        $nor = $request->input('nor');
+        $sec = $request->input('sec');
+        $all_the_same = $request->input('all_the_same');
+
+        $score_setup = ScoreSetup::where('year_seme',$year_seme)
+            ->where('class_year',$grade)
+            ->first();
+
+        $action = "create";
+        $att['year_seme'] = $year_seme;
+        $att['class_year'] = $grade;
+        $att['performance_test_times'] = $times;
+        $att['test_ratio'] = $nor."+".$sec;
+        if($all_the_same=="on"){
+            $score_setup = ScoreSetup::where('year_seme',$year_seme)
+                ->delete();
+            for($i=1;$i<7;$i++){
+                $att['class_year'] = $i;
+                ScoreSetup::create($att);
+            }
+        }else{
+            if(empty($score_setup->id)){
+                ScoreSetup::create($att);
+            }else{
+                $score_setup->update($att);
+            }
+        }
+
+        return redirect()->route('every_year_setup.score_setup');
+
     }
 }

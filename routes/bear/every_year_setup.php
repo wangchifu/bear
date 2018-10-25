@@ -19,7 +19,10 @@ Route::post('every_year_setup/school_day_store', 'EveryYearSetupController@schoo
 Route::patch('every_year_setup/{seme_course_date}/school_day_update', 'EveryYearSetupController@school_day_update')->name('every_year_setup.school_day_update');
 
 
-Route::get('every_year_setup/score_setup', 'EveryYearSetupController@score_setup')->name('every_year_setup.score_setup');
+Route::match(['get','post'],'every_year_setup/score_setup', 'EveryYearSetupController@score_setup')->name('every_year_setup.score_setup');
+Route::get('every_year_setup/{year_seme}/{grade}/score_edit', 'EveryYearSetupController@score_edit')->name('every_year_setup.score_edit');
+Route::post('every_year_setup/score_save', 'EveryYearSetupController@score_save')->name('every_year_setup.score_save');
+
 
 Route::get('every_year_setup/course_setup', 'EveryYearSetupController@course_setup')->name('every_year_setup.course_setup');
 
