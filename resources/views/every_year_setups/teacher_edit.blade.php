@@ -34,12 +34,7 @@
     <div class="row">
         <div class="form-group col-12">
             <h4>教師設定</h4>
-            {{ Form::open(['route'=>'every_year_setup.teacher_setup','method'=>'post']) }}
-            {!! get_seme_menu($this_seme) !!} <button type="submit">切換學期</button>
-            {{ Form::close() }}
-            <br>
-            <a href="{{ route('every_year_setup.teacher_edit',$this_seme) }}" class="btn btn-success btn-sm">設定本學期</a>
-            <br>
+            {{ Form::open(['route'=>'every_year_setup.teacher_save','method'=>'post']) }}
             <table class="table table-striped table-hover">
                 <thead>
                 <tr bgcolor="#cccccc">
@@ -61,27 +56,24 @@
                 @foreach($school_classes as $school_class)
                 <tr>
                     <td>
-                        {{ substr($this_seme,0,3) }}學年第{{ substr($this_seme,3,1) }}學期
+                        {{ cht_seme_name($year_seme) }}
                     </td>
                     <td>
-                        {{ cht_class_name($this_seme,$school_class->class_sn) }} ({{ $school_class->class_sn }})
+                        {{ cht_class_name($year_seme,$school_class->class_sn) }} ({{ $school_class->class_sn }})
                     </td>
                     <td>
-                        <?php $user=\App\User::where('id',$school_class->teacher_1)->first(); ?>
-                        @if($user)
-                        {{ $user->name }}
-                        @endif
+                        {{ Form::select('teacher_1['.$school_class->class_sn.']',$user_select,null,['class'=>'form-control','placeholder'=>'','required'=>'required']) }}
                     </td>
                     <td>
-                        <?php $user=\App\User::where('id',$school_class->teacher_2)->first(); ?>
-                        @if($user)
-                            {{ $user->name }}
-                        @endif
+                        {{ Form::select('teacher_2['.$school_class->class_sn.']',$user_select,null,['class'=>'form-control','placeholder'=>'']) }}
                     </td>
                 </tr>
                 @endforeach
                 </tbody>
             </table>
+            <input type="hidden" name="year_seme" value="{{ $year_seme }}">
+            <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('確定嗎？')">儲存</button>
+            {{ Form::close() }}
         </div>
     </div>
 </div>

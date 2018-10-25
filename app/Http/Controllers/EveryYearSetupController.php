@@ -19,7 +19,7 @@ class EveryYearSetupController extends Controller
     public function index()
     {
         $school_days = SchoolDay::orderBy('year_seme','DESC')
-        ->paginate(1);
+        ->paginate(10);
         $data = [
             'school_days'=>$school_days,
         ];
@@ -381,6 +381,28 @@ class EveryYearSetupController extends Controller
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function teacher_setup(Request $request)
     {
         $curr_seme = get_curr_seme();
@@ -389,10 +411,47 @@ class EveryYearSetupController extends Controller
         $school_classes = SchoolClass::where('year_seme',$this_seme)
             ->orderBy('class_sn')
             ->get();
+
+
+
         $data = [
             'this_seme'=>$this_seme,
             'school_classes'=>$school_classes,
         ];
         return view('every_year_setups.teacher_setup',$data);
+    }
+
+    public function teacher_edit($year_seme)
+    {
+
+        $school_classes = SchoolClass::where('year_seme',$year_seme)
+            ->orderBy('class_sn')
+            ->get();
+
+        $user_select = get_teacher_array();
+        $data = [
+            'year_seme'=>$year_seme,
+            'school_classes'=>$school_classes,
+            'user_select'=>$user_select,
+        ];
+        return view('every_year_setups.teacher_edit',$data);
+    }
+
+    public function teacher_save(Request $request)
+    {
+        $year_seme = $request->input('year_seme');
+        $teacher_1 = $request->input('teacher_1');
+        $teacher_2 = $request->input('teacher_2');
+
+        foreach($teacher_1 as $k => $v){
+            $school_class= SchoolClass::where('year_seme',$year_seme)
+                ->where('class_sn',$k)
+                ->first();
+            $att['teacher_1'] = $teacher_1[$k];
+            $att['teacher_2'] = $teacher_2[$k];
+            $school_class->update($att);
+        }
+
+        return redirect()->route('every_year_setup.teacher_setup');
     }
 }

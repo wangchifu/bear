@@ -40,3 +40,28 @@ if (! function_exists('cht_class_name')) {
         return $class_name;
     }
 }
+
+//回傳目前在職教師陣列
+if (! function_exists('get_teacher_array')) {
+    function get_teacher_array()
+    {
+//教師選單
+        $users = \App\User::where('condition',0)->get();
+        $user_data=[];
+        foreach($users as $user){
+            $order_by = $user->teacher_base->school_title->order_by;
+            $user_data[$order_by][$user->id]['name'] = $user->teacher_base->school_title->name."--".$user->name;
+            $user_data[$order_by][$user->id]['id'] = $user->id;
+        }
+        ksort($user_data);
+
+        $user_select=[];
+        foreach($user_data as $k1=>$v1){
+            foreach($v1 as $k2=>$v2){
+                $user_select[$v2['id']] = $v2['name'];
+            }
+        }
+
+        return $user_select;
+    }
+}

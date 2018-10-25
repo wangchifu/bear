@@ -29,3 +29,5 @@ Route::get('every_year_setup/course_setup', 'EveryYearSetupController@course_set
 Route::get('every_year_setup/curriculum_setup', 'EveryYearSetupController@curriculum_setup')->name('every_year_setup.curriculum_setup');
 
 Route::match(['get','post'],'every_year_setup/teacher_setup', 'EveryYearSetupController@teacher_setup')->name('every_year_setup.teacher_setup');
+Route::get('every_year_setup/{year_seme}/teacher_edit', 'EveryYearSetupController@teacher_edit')->name('every_year_setup.teacher_edit');
+Route::post('every_year_setup/teacher_save', 'EveryYearSetupController@teacher_save')->name('every_year_setup.teacher_save');
