@@ -28,4 +28,4 @@ Route::get('every_year_setup/course_setup', 'EveryYearSetupController@course_set
 
 Route::get('every_year_setup/curriculum_setup', 'EveryYearSetupController@curriculum_setup')->name('every_year_setup.curriculum_setup');
 
-Route::get('every_year_setup/teacher_setup', 'EveryYearSetupController@teacher_setup')->name('every_year_setup.teacher_setup');
+Route::match(['get','post'],'every_year_setup/teacher_setup', 'EveryYearSetupController@teacher_setup')->name('every_year_setup.teacher_setup');

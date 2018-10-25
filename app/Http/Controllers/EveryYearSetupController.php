@@ -379,4 +379,20 @@ class EveryYearSetupController extends Controller
         return redirect()->route('every_year_setup.score_setup');
 
     }
+
+
+    public function teacher_setup(Request $request)
+    {
+        $curr_seme = get_curr_seme();
+        $this_seme = ($request->input('this_seme'))?$request->input('this_seme'):$curr_seme['id'];
+
+        $school_classes = SchoolClass::where('year_seme',$this_seme)
+            ->orderBy('class_sn')
+            ->get();
+        $data = [
+            'this_seme'=>$this_seme,
+            'school_classes'=>$school_classes,
+        ];
+        return view('every_year_setups.teacher_setup',$data);
+    }
 }

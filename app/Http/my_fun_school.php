@@ -19,3 +19,24 @@ if (! function_exists('school_setup')) {
 }
 
 //回傳學期中文班名
+if (! function_exists('cht_class_name')) {
+    function cht_class_name($year_seme,$class_sn)
+    {
+        $school_class = \App\SchoolClass::where('year_seme',$year_seme)
+            ->where('class_sn',$class_sn)
+            ->first();
+        $class_type = config('app.class_type');
+        if(substr($class_sn,0,1) != 9){
+            $this_class_type = $class_type[$school_class->class_type];
+
+            $y = substr($class_sn,0,1);
+            $c = (int)substr($class_sn,1,2);
+            $class_name = cht_number($y)."年".$this_class_type[$c]."班";
+        }else{
+            $class_name = "特教班";
+        }
+
+
+        return $class_name;
+    }
+}
