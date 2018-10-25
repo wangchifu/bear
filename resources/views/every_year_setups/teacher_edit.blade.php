@@ -62,10 +62,26 @@
                         {{ cht_class_name($year_seme,$school_class->class_sn) }} ({{ $school_class->class_sn }})
                     </td>
                     <td>
-                        {{ Form::select('teacher_1['.$school_class->class_sn.']',$user_select,null,['class'=>'form-control','placeholder'=>'','required'=>'required']) }}
+                        <?php
+                        $teacher_1 = null;
+                        if(!empty($school_class->teacher_1)){
+                            $user = \App\User::where('id',$school_class->teacher_1)
+                                ->first();
+                            $teacher_1 = $user->id;
+                        }
+                        ?>
+                        {{ Form::select('teacher_1['.$school_class->class_sn.']',$user_select,$teacher_1,['class'=>'form-control','placeholder'=>'','required'=>'required']) }}
                     </td>
                     <td>
-                        {{ Form::select('teacher_2['.$school_class->class_sn.']',$user_select,null,['class'=>'form-control','placeholder'=>'']) }}
+                        <?php
+                        $teacher_2 = null;
+                        if(!empty($school_class->teacher_2)){
+                            $user = \App\User::where('id',$school_class->teacher_1)
+                                ->first();
+                            $teacher_2 = $user->id;
+                        }
+                        ?>
+                        {{ Form::select('teacher_2['.$school_class->class_sn.']',$user_select,$teacher_2,['class'=>'form-control','placeholder'=>'']) }}
                     </td>
                 </tr>
                 @endforeach
