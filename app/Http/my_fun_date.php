@@ -106,6 +106,7 @@ if(! function_exists('get_seme_menu')){
     }
 }
 
+//學期的中文名
 if(! function_exists('cht_seme_name')){
     function cht_seme_name($year_seme){
         return substr($year_seme,0,3) . "學年第" . substr($year_seme,3,1) . "學期";

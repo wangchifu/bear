@@ -24,7 +24,12 @@ Route::get('every_year_setup/{year_seme}/{grade}/score_edit', 'EveryYearSetupCon
 Route::post('every_year_setup/score_save', 'EveryYearSetupController@score_save')->name('every_year_setup.score_save');
 
 
-Route::get('every_year_setup/course_setup', 'EveryYearSetupController@course_setup')->name('every_year_setup.course_setup');
+Route::match(['get','post'],'every_year_setup/course_setup', 'EveryYearSetupController@course_setup')->name('every_year_setup.course_setup');
+Route::get('every_year_setup/{year_seme}/{class_sn}/course_show', 'EveryYearSetupController@course_show')->name('every_year_setup.course_show');
+Route::get('every_year_setup/curriculum_guideline', 'EveryYearSetupController@curriculum_guideline')->name('every_year_setup.curriculum_guideline');
+Route::post('every_year_setup/curriculum_guideline_store', 'EveryYearSetupController@curriculum_guideline_store')->name('every_year_setup.curriculum_guideline_store');
+Route::get('every_year_setup/{curriculum_guideline}/curriculum_guideline_change', 'EveryYearSetupController@curriculum_guideline_change')->name('every_year_setup.curriculum_guideline_change');
+
 
 Route::get('every_year_setup/curriculum_setup', 'EveryYearSetupController@curriculum_setup')->name('every_year_setup.curriculum_setup');
 
