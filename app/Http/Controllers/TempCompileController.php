@@ -368,6 +368,8 @@ class TempCompileController extends Controller
             ->where('has_study','2')//1就讀，2特教班
             ->get();
 
+        $student_data = [];
+
         foreach($new_students as $new_student){
             $student_data[$new_student->new_class][$new_student->new_num]['id'] = $new_student->id;
             $student_data[$new_student->new_class][$new_student->new_num]['name'] = $new_student->name;

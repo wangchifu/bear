@@ -178,13 +178,13 @@
                                         @endif
                                     </td>
                                 </tr>
+                                <input type="hidden" name="select_year" value="{{ $select_year }}">
+                                <input type="hidden" name="new_class[{{ $special_student->id }}]" value="">
+                                <input type="hidden" name="new_num[{{ $special_student->id }}]" value="">
                             @endforeach
                         </table>
                         <br>
                         <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('確定嗎？')">儲存 特教班</button>
-                        <input type="hidden" name="select_year" value="{{ $select_year }}">
-                        <input type="hidden" name="new_class[{{ $special_student->id }}]" value="">
-                        <input type="hidden" name="new_num[{{ $special_student->id }}]" value="">
                         {{ Form::close() }}
                         <br>
                         <li>
